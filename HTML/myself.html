@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自行選擇</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="text-white relative">
+    <div id="header-include"></div>
+    <script>
+        fetch('components/header.html').then(r => r.text()).then(t => document.getElementById('header-include').innerHTML = t);
+    </script>
+    <!-- 背景層 -->
+    <div class="background-layer"></div>
+    <div class="overlay-layer"></div>
+
+    <!-- 頂部按鈕 -->
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <a href="index.html" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">首頁</a>
+        <a href="about.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">關於我們</a>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gray-800 py-4 w-full">
+        <div class="container mx-auto flex items-center space-x-4">
+            <a href="index.html">
+                <img src="data/logo/noword.png" alt="Logo" class="h-10 w-auto">
+            </a>
+            <h1 class="text-2xl font-bold">遊戲王卡片搜尋網</h1>
+        </div>
+    </header>
+
+    <!-- 主內容 -->
+    <main>
+        <div class="container mx-auto py-8">
+            <div class="bg-gray-800 p-6 rounded shadow">
+                <h2 class="text-lg font-bold mb-4">自行選擇</h2>
+                <!-- 卡片搜尋結果顯示 -->
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer
+    <footer class="bg-gray-800">
+        <div class="container mx-auto text-center py-4">
+            <p>&copy; 2025 遊戲王卡片搜尋網</p>
+        </div>
+    </footer> -->
+    <footer>
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 遊戲王卡片搜尋網</p>
+        </div>
+    </footer>
+    <!-- 向上按鈕 -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+    <script>
+        // 當網頁向下滾動 20px 時，顯示按鈕
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        // 當使用者點擊按鈕時，滾動到頁面頂部
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+</body>
+
+</html>

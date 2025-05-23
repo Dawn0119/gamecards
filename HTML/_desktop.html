@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面版</title>
+    <style>
+        body {
+            overflow-x: auto;
+            /* 垂直捲軸 */
+            white-space: nowrap;
+            /* 文字會在達到邊界時自動換行 */
+            /* margin: 0;
+            外邊距
+            padding: 1;
+            內邊距 */
+            /* margin: 2; */
+        }
+
+        iframe {
+            width: 100vw;
+            /* 滿版寬 */
+            height: 100vh;
+            /* 滿版高 */
+            border: none;
+            display: block;
+        }
+        /* iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: inline-block;
+            overflow: hidden;
+        } */
+        /* display: (inline-)block; 可以確保 iframe 佔滿整個視窗 */
+        /* iframe {
+            width: 1200px;
+            height: 800px;
+            border: none;
+            display: inline-block;
+        } */
+    </style>
+</head>
+
+<body>
+    <iframe src="index.html"></iframe>
+    <!-- <iframe src="about.html"></iframe> -->
+</body>
+
+</html>
