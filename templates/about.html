@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>關於我們</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="style.css" rel="stylesheet" />
+  <link href="../static/css/style.css" rel="stylesheet" />
 </head>
 
 <body class="bg-gray-900 text-white">
@@ -15,7 +15,7 @@
   <script>
     fetch('components/header.html').then(r => r.text()).then(t => document.getElementById('header-include').innerHTML = t);
   </script> -->
-  
+
   <div class="background-layer"></div>
   <div class="overlay-layer"></div>
 
@@ -29,7 +29,7 @@
   <header class="bg-gray-800 py-4 w-full z-50">
     <div class="container mx-auto flex items-center space-x-4">
       <a href="index.html">
-        <img src="data/logo/noword.png" alt="Logo" class="h-10 w-auto" />
+        <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto" />
       </a>
       <h1 class="text-2xl font-bold">關於我們</h1>
     </div>

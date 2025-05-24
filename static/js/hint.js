@@ -25,7 +25,7 @@ function confirmAction() {
   if (currentMode === 'showall') {
     window.open('showall.html', '_blank');
   } else if (currentMode === 'myself') {
-    window.open('myself.html', '_blank');
+    window.open('choice.html', '_blank');
   }
   closeModal();
 }
