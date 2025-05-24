@@ -10,12 +10,22 @@
 </head>
 
 <body class="text-white relative bg-gray-900">
-  <!-- 頂部按鈕 -->
-  <!-- <div id="header-include"></div>
-  <script>
-    fetch('components/header.html').then(r => r.text()).then(t => document.getElementById('header-include').innerHTML = t);
+  <!-- Header 包含在這 -->
+  <!-- <div id="header-include"></div> -->
+  <!-- <script>
+    fetch('components/header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-include').innerHTML = html;
+      });
   </script> -->
+  <script>
+    fetch('components/header.html')
+      .then(r => r.text())
+      .then(t => document.getElementById('header-include').innerHTML = t);
+  </script>
 
+  <!-- 背景層 -->
   <div class="background-layer"></div>
   <div class="overlay-layer"></div>
 
@@ -24,49 +34,18 @@
     <a href="about.html">關於我們</a>
   </div>
 
-
-  <!-- <div style="position: absolute; top: 10px; right: 10px; z-index: 100;">
-    <a href="index.html" style="
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 5px;
-    ">首頁</a>
-    <a href="about.html" style="
-        background-color: #008CBA;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 5px;
-    ">關於我們</a>
-  </div> -->
-
-
   <!-- Header -->
-  <header class="bg-gray-800 py-4 w-full z-50">
+  <header class="bg-gray-800 py-4 w-full">
     <div class="container mx-auto flex items-center space-x-4">
       <a href="index.html">
-        <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto" />
+        <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto">
       </a>
       <h1 class="text-2xl font-bold">遊戲王卡片搜尋網</h1>
     </div>
   </header>
 
+  <!-- 主內容區 -->
   <main class="pt-24 container mx-auto py-8">
-    <!-- 主內容（卡片搜尋） -->
     <div class="bg-gray-800 p-6 rounded shadow">
       <h2 class="text-lg font-bold mb-4">卡片搜尋</h2>
       <form id="uploadForm">
@@ -99,7 +78,6 @@
     </div>
   </div>
 
-
   <!-- Footer -->
   <footer>
     <div class="container mx-auto text-center">
@@ -109,18 +87,8 @@
 
   <!-- Scripts -->
   <script src="../static/js/hint.js"></script>
-  <script>
-    window.onscroll = function () { scrollFunction(); };
-    function scrollFunction() {
-      document.getElementById("myBtn").style.display =
-        document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ? "block" : "none";
-    }
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
 
+  <!-- 返回頂部按鈕 -->
   <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
 </body>
 

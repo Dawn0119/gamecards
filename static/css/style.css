@@ -62,12 +62,6 @@ main {
   background-color: #3e8e41;
 }
 
-/* 向上按鈕 */
-#myBtn {
-  display: none;
-  position: fixed;
-}
-
 /* 固定 footer 在底部 */
 footer {
   background-color: #2d3748; /* Tailwind bg-gray-800 */
