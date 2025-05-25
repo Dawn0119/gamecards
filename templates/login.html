@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登入找卡</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="../static/css/style.css" rel="stylesheet" />
+    <style>
+        body,
+        html {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            align-items: center;
+            /* 垂直置中 */
+            font-family: "Comic Sans MS", "MSource Han Sans";
+            font-weight: bold;
+        }
+
+        /* justify-content: center;
+        align-items: center; */
+        .login-container {
+            width: 300px;
+            /* 寬度 */
+            height: 500px;
+            /* 高度 */
+
+            border: 3px solid #ffffff;
+            /* 邊框 */
+            padding: 20px;
+            /* 內邊距 */
+            border-radius: 10px;
+            /* 圓角邊框 */
+
+            background: #4fcffefb;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin: 20px 0;
+            /* 上下邊距 */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff3c00cd;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-layer"></div>
+    <div class="overlay-layer"></div>
+
+    <div class="top-right-buttons">
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="login.html">登入</a>
+    </div>
+
+    <header class="bg-gray-800 py-4 w-full">
+        <div class="container mx-auto flex items-center space-x-4">
+            <a href="index.html">
+                <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto">
+            </a>
+            <h1 class="text-2xl font-bold">遊戲王卡片搜尋網</h1>
+        </div>
+    </header>
+<!-- 🤔 -->
+    <div class="login-container">
+        <h2>登入找卡片💡</h2>
+        <input type="text" placeholder="暱稱" name="username" required>
+        <input type="password" placeholder="通關密語" name="password" required>
+        <button type="submit">Search🔍</button>
+
+        <a href="#">Login with Google</a><br>
+        <a href="#">Login with Line</a><br>
+        <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="../static/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="background-layer"></div>
+    <div class="overlay-layer"></div>
+
+    <div class="top-right-buttons">
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="login.html">登入</a>
+    </div>
+
+    
+    <header class="bg-gray-800 py-4 w-full">
+        <div class="container mx-auto flex items-center space-x-4">
+            <a href="index.html">
+                <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto">
+            </a>
+            <h1 class="text-2xl font-bold">遊戲王卡片搜尋網</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+        <p>Or</p>
+        <a href="#">Login with Google</a><br>
+        <a href="#">Login with Line</a><br>
+        <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+</body>
+
+</html> -->
