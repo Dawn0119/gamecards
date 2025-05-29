@@ -6,7 +6,7 @@
     <title>{% block title %}首頁{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        
+
     </style>
 </head>
 
@@ -16,17 +16,49 @@
     <main>
         {% block content %}
         <div class="button-container">
-            <button style="background-color: orange;">單張顯示</button>
-            <button style="background-color: plum;">全部顯示</button>
-            <button style="background-color: lightgreen;">自行選擇</button>
+            <button onclick="switchMode('one')" style="background-color: orange;">單張顯示</button>
+            <button onclick="switchMode('all')" style="background-color: plum;">全部顯示</button>
+            <button onclick="switchMode('choice')" style="background-color: lightgreen;">自行選擇</button>
         </div>
 
-        <div class="upload-block" style="background-color: orange;">
-            <p>選取檔案</p>
+        <!-- 區塊：單張顯示 -->
+        <div id="block-one" class="upload-block" style="background-color: orange; display: none;">
+            <p>選取一張檔案</p>
             <p>或拖曳檔案到此</p>
             <button>選取檔案</button>
+            <button class="search-button" onclick="openModal('one')">搜尋</button>
         </div>
-        <button class="search-button">搜尋</button>
+
+        <!-- 區塊：全部顯示 -->
+        <div id="block-all" class="upload-block" style="background-color: plum; display: none;">
+            <p>選取一張檔案</p>
+            <p>或拖曳檔案到此</p>
+            <button>選取檔案</button>
+            <button class="search-button" onclick="openModal('all')">搜尋</button>
+        </div>
+
+        <!-- 區塊：自行選擇 -->
+        <div id="block-choice" class="upload-block" style="background-color: lightgreen; display: none;">
+            <p>選取一張檔案</p>
+            <p>或拖曳檔案到此</p>
+            <button>選取檔案</button>
+            <button class="search-button" onclick="openModal('choice')">搜尋</button>
+        </div>
+        <!-- 彈跳視窗 Modal -->
+        <div id="myModal" class="modal hidden">
+            <div class="modal-box">
+                <h2 class="modal-title">提醒</h2>
+                <p id="modalMessage" class="modal-message">這裡是提示文字</p>
+                <div class="modal-buttons">
+                    <button onclick="closeModal()" class="btn-cancel">取消</button>
+                    <button onclick="confirmAction()" class="btn-confirm">確認</button>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="{{ url_for('static', filename='js/hint.js') }}"></script>
+
         {% endblock %}
     </main>
 
