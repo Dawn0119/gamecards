@@ -34,11 +34,28 @@ function closeModal() {
 
 function confirmAction() {
     if (currentMode === 'all') {
-        window.open('all.html', '_blank');
+        window.open('/all', '_blank');  // 跳轉到後端路由
     } else if (currentMode === 'choice') {
-        window.open('choice.html', '_blank');
-    } else if (currentMode === 'single') {
-        window.open('single.html', '_blank');
+        window.open('/choice', '_blank');
+    } else if (currentMode === 'one') {
+        window.open('/one', '_blank');
     }
     closeModal();
+}
+
+// 當網頁向下滾動 20px 時，顯示按鈕
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// 當使用者點擊按鈕時，滾動到頁面頂部
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
