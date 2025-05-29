@@ -1,70 +1,35 @@
-let currentMode = null; // 儲存是哪個按鈕打開的 modal
+document.addEventListener('DOMContentLoaded', function() {
+    const singleButton = document.querySelector('.button-container button:nth-child(1)');
+    const allButton = document.querySelector('.button-container button:nth-child(2)');
+    const choiceButton = document.querySelector('.button-container button:nth-child(3)');
+    const searchButton = document.querySelector('.search-button');
 
-function openModal(mode) {
-  currentMode = mode;
-  const modal = document.getElementById('myModal');
-  const message = document.getElementById('modalMessage');
+    singleButton.addEventListener('click', function() {
+        document.querySelector('.upload-block').style.backgroundColor = 'orange';
+    });
 
-  if (mode === 'showall') {
-    message.textContent = '由於卡片過多，顯示速度會較慢，是否確認依然要選取此方式做查詢?';
-  } else if (mode === 'choice') {
-    message.textContent = '這是「自行選擇」模式的提示訊息。（之後可以自訂）';
-  }
+    allButton.addEventListener('click', function() {
+        document.querySelector('.upload-block').style.backgroundColor = 'plum';
+    });
 
-  modal.classList.remove('hidden');
-}
+    choiceButton.addEventListener('click', function() {
+        document.querySelector('.upload-block').style.backgroundColor = 'lightgreen';
+    });
 
-function closeModal() {
-  document.getElementById('myModal').classList.add('hidden');
-}
+    searchButton.addEventListener('click', function() {
+        const backgroundColor = document.querySelector('.upload-block').style.backgroundColor;
+        let message = '';
 
-function confirmAction() {
-  if (currentMode === 'showall') {
-    window.open('showall.html', '_blank');
-  } else if (currentMode === 'choice') {
-    window.open('choice.html', '_blank');
-  }
-  closeModal();
-}
+        if (backgroundColor === 'orange') {
+            message = '單張顯示的警告訊息';
+        } else if (backgroundColor === 'plum') {
+            message = '全部顯示的警告訊息';
+        } else if (backgroundColor === 'lightgreen') {
+            message = '自行選擇的警告訊息';
+        } else {
+            message = '預設的警告訊息';
+        }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const showAllButton = document.getElementById('showAllButton');
-  const chooseButton = document.getElementById('chooseButton');
-  const confirmButton = document.getElementById('confirmButton');
-
-  if (showAllButton) {
-    showAllButton.addEventListener('click', () => openModal('showall'));
-  }
-
-  if (chooseButton) {
-    chooseButton.addEventListener('click', () => openModal('choice'));
-  }
-
-  if (confirmButton) {
-    confirmButton.addEventListener('click', confirmAction);
-  }
-
-  // 合併 scroll 功能：變色 header + 顯示 top 按鈕
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    const myBtn = document.getElementById('myBtn');
-
-    if (header) {
-      if (window.scrollY > 50) {
-        header.classList.add('bg-gray-900/80', 'shadow-lg');
-      } else {
-        header.classList.remove('bg-gray-900/80', 'shadow-lg');
-      }
-    }
-
-    if (myBtn) {
-      myBtn.style.display = window.scrollY > 20 ? "block" : "none";
-    }
-  });
+        alert(message);
+    });
 });
-
-// 返回頂部功能
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}

@@ -1,96 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>遊戲王卡片搜尋</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="../static/css/style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>{% block title %}首頁{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        
+    </style>
 </head>
 
-<body class="text-white relative bg-gray-900">
-  <!-- Header 包含在這 -->
-  <!-- <div id="header-include"></div> -->
-  <!-- <script>
-    fetch('components/header.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('header-include').innerHTML = html;
-      });
-  </script> -->
-  <!-- <script>
-    fetch('components/header.html')
-      .then(r => r.text())
-      .then(t => document.getElementById('header-include').innerHTML = t);
-  </script> -->
+<body>
+    {% include "components/header.html" %}
 
-  <!-- 背景層 -->
-  <div class="background-layer"></div>
-  <div class="overlay-layer"></div>
-
-  <div class="top-right-buttons">
-    <a href="index.html">首頁</a>
-    <a href="about.html">關於我們</a>
-    <a href="login.html">登入</a>
-  </div>
-
-  <!-- Header -->
-  <header class="bg-gray-800 py-4 w-full">
-    <div class="container mx-auto flex items-center space-x-4">
-      <a href="index.html">
-        <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto">
-      </a>
-      <h1 class="text-2xl font-bold">遊戲王卡片搜尋網</h1>
-    </div>
-  </header>
-
-  <!-- 主內容區 -->
-  <main class="pt-24 container mx-auto py-8">
-    <div class="bg-gray-800 p-6 rounded shadow">
-      <h2 class="text-lg font-bold mb-4">卡片搜尋</h2>
-      <form id="uploadForm">
-        <div class="w-full h-64 mt-4 bg-gray-600 flex items-center justify-center rounded">
-          <span class="text-gray-300">公司LOGO</span>
+    <main>
+        {% block content %}
+        <div class="button-container">
+            <button style="background-color: orange;">單張顯示</button>
+            <button style="background-color: plum;">全部顯示</button>
+            <button style="background-color: lightgreen;">自行選擇</button>
         </div>
-        <div class="mt-6 flex justify-center space-x-4">
-          <label for="image" class="block text-sm font-medium text-white">上傳圖片</label>
-          <input type="file" id="image" name="image" accept="image/*"
-            class="mt-1 p-2 bg-gray-700 text-white rounded-md" />
-          <button type="button" id="showAllButton"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">一次顯示</button>
-          <button type="button" id="chooseButton"
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">自行選擇</button>
+
+        <div class="upload-block" style="background-color: orange;">
+            <p>選取檔案</p>
+            <p>或拖曳檔案到此</p>
+            <button>選取檔案</button>
         </div>
-      </form>
-      <div id="cardResults" class="mt-6"></div>
-    </div>
-  </main>
+        <button class="search-button">搜尋</button>
+        {% endblock %}
+    </main>
 
-  <!-- Modal -->
-  <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-    <div class="bg-white text-black p-6 rounded shadow-lg w-96">
-      <h2 class="text-xl font-bold mb-4">一次顯示提醒</h2>
-      <p id="modalMessage">卡片過多，顯示速度會較慢，是否確認依然要選取此方式做查詢?</p>
-      <div class="mt-4 flex justify-end space-x-2">
-        <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">取消</button>
-        <button id="confirmButton" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">確認</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container mx-auto text-center">
-      <p>&copy; 2025 遊戲王卡片搜尋網</p>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="../static/js/hint.js"></script>
-
-  <!-- 返回頂部按鈕 -->
-  <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+    {% include "components/footer.html" %}
 </body>
 
 </html>

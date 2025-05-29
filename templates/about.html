@@ -1,60 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+{% extends "index.html" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>關於我們</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="../static/css/style.css" rel="stylesheet" />
-</head>
+{% block title %}關於我們{% endblock %}
 
-<body class="bg-gray-900 text-white">
-  <!-- 頂部按鈕 -->
-  <!-- <div id="header-include"></div>
-  <script>
-    fetch('components/header.html').then(r => r.text()).then(t => document.getElementById('header-include').innerHTML = t);
-  </script> -->
-
-  <div class="background-layer"></div>
-  <div class="overlay-layer"></div>
-
-  <!-- 右上角按鈕 -->
-  <div class="top-right-buttons">
-    <a href="index.html">首頁</a>
-    <a href="about.html">關於我們</a>
-    <a href="login.html">登入</a>
-  </div>
-
-  <!-- Header -->
-  <header class="bg-gray-800 py-4 w-full z-50">
-    <div class="container mx-auto flex items-center space-x-4">
-      <a href="index.html">
-        <img src="../static/images/noword.png" alt="Logo" class="h-10 w-auto" />
-      </a>
-      <h1 class="text-2xl font-bold">關於我們</h1>
-    </div>
-  </header>
-
-  <main class="pt-24 container mx-auto py-8">
-    <div class="bg-gray-800 p-6 rounded shadow">
-      <p>我們是一個致力於遊戲王卡片收藏、買賣與搜尋的網站。提供最詳細的卡片資訊、價格和相關資料，讓玩家們可以輕鬆找到想要的卡片。</p>
-      <p>我們的使命是讓每一位遊戲王卡片愛好者，都能夠輕鬆地找到他們所需的卡片。</p>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container mx-auto text-center">
-      <p>&copy; 2025 遊戲王卡片搜尋網</p>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="../static/js/hint.js"></script>
-
-  <!-- 返回頂部按鈕 -->
-  <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
-</body>
-
-</html>
+{% block content %}
+  <h2>關於我們</h2>
+  <p>這是關於我們頁面的內容。</p>
+{% endblock %}
