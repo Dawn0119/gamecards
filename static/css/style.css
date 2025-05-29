@@ -1,3 +1,4 @@
+/* Header */
 header {
   background-color: #1efff8;
   color: rgb(171, 2, 250);
@@ -20,66 +21,84 @@ header {
   text-decoration: underline;
 }
 
+/* Footer */
 footer {
   background-color: #71a6f1;
   color: #f3fffb;
   text-align: center;
   padding: 1rem 0;
-  /* position: fixed; */
-  /* bottom: 0; */
-  /* width: 100%; */
   margin-top: auto;
 }
 
+/* Main Area */
 main {
   padding: 2rem;
   margin-bottom: 60px;
 }
 
-.upload-block {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 20px;
-    border-radius: 10px;
-}
-
-.button-container button {
-    border-radius: 5px;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.search-button {
-    float: right;
-    border-radius: 5px;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
+/* Buttons */
 .button-container {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
 }
 
+.button-container button {
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* 容器調整為彈性大小 */
+.mode-container {
+  width: 500px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+/* 大區塊 */
+.large-block {
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 上傳區塊（虛線） */
 .upload-block {
   border: 2px dashed #ccc;
   padding: 20px;
   text-align: center;
   cursor: pointer;
   margin-bottom: 20px;
+  border-radius: 10px;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* 搜尋按鈕 */
 .search-button {
-  float: right;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
 
+.search-button:hover {
+  background-color: #555;
+}
 
-/* 警告 */
 /* Modal 樣式 */
 .modal {
   position: fixed;
@@ -138,71 +157,3 @@ main {
   border-radius: 4px;
   cursor: pointer;
 }
-
-/* Modal 基本樣式 */
-/* .modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-box {
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  width: 400px;
-  text-align: center;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 16px;
-}
-
-.modal-message {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.btn-cancel {
-  background-color: #e0e0e0;
-  color: #333;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-cancel:hover {
-  background-color: #ccc;
-}
-
-.btn-confirm {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-confirm:hover {
-  background-color: #0056b3;
-} */
-
