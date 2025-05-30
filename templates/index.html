@@ -65,11 +65,10 @@
                 </div>
             </div>
         </div>
-
-        <script src="{{ url_for('static', filename='js/hint.js') }}"></script>
         {% endblock %}
+        <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+        <script src="{{ url_for('static', filename='js/hint.js') }}"></script>
     </main>
-
     {% include "components/footer.html" %}
 </body>
 
