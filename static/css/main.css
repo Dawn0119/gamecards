@@ -23,7 +23,7 @@ main {
 .button-container button {
   flex: 1;  /* 等分寬度 */
   border-radius: 20px;  /* 圓角按鈕 */
-  padding: 30px 0;  /* 垂直 padding 固定，水平由 flex 寬度決定 */
+  padding: 25px 0;  /* 垂直 padding 固定，水平由 flex 寬度決定 */
   border: none;
   cursor: pointer;
   font-size: 20px;  /* 文字大小（1rem = 約16px） */
