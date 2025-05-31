@@ -2,13 +2,13 @@
 .modal {
   position: fixed;               /* 固定定位，讓視窗停留在螢幕中央 */
   inset: 0;                     /* top:0; right:0; bottom:0; left:0; */
-  background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+  background-color: rgba(0, 0, 0, 0.85); /* 更深一點的半透明背景 */
   display: flex;                /* 使用 Flexbox 方便置中內容 */
   align-items: center;          /* 垂直置中 */
   justify-content: center;      /* 水平置中 */
   z-index: 9999;                /* 確保浮在最上層 */
   font-family: sans-serif;      /* 字型設定 */
-  color: #eee;                  /* 文字顏色 */
+  color: #e0f7ff;               /* 文字顏色（和主色一致） */
 }
 
 /* 隱藏 Modal：當加上 hidden 類別時，隱藏彈窗 */
@@ -18,11 +18,11 @@
 
 /* Modal 內容盒子 */
 .modal-box {
-  background-color: #333;           /* 深灰背景 */
+  background-color: #1a1a1a;           /* 深灰背景（更沉穩） */
   padding: 24px;                    /* 內邊距 */
   border-radius: 8px;               /* 圓角 */
   width: 400px;                     /* 固定寬度 */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8); /* 陰影效果 */
+  box-shadow: 0 5px 18px rgba(0, 255, 255, 0.2); /* 更有科技感的光影 */
   text-align: center;               /* 文字置中 */
 }
 
@@ -31,14 +31,14 @@
   font-size: 20px;       /* 字體大小 */
   font-weight: bold;     /* 粗體 */
   margin-bottom: 12px;   /* 底部外距 */
-  color: #0ff;           /* 亮青色 */
+  color: #33ffff;        /* 更柔亮青色 */
 }
 
 /* Modal 內容訊息 */
 .modal-message {
   font-size: 16px;       /* 字體大小 */
   margin-bottom: 20px;   /* 底部外距 */
-  color: #eee;           /* 文字顏色 */
+  color: #e0f7ff;        /* 統一文字色調 */
 }
 
 /* Modal 按鈕容器：水平排列且間隔 */
@@ -50,7 +50,7 @@
 
 /* 取消按鈕 */
 .btn-cancel {
-  background-color: #555;  /* 深灰 */
+  background-color: #444;  /* 暗灰 */
   color: #eee;             /* 文字顏色 */
   padding: 8px 16px;       /* 內邊距 */
   border: none;            /* 無邊框 */
@@ -60,10 +60,10 @@
 
 /* 確認按鈕 */
 .btn-confirm {
-  background-color: #0ff;  /* 亮青色 */
-  color: #222;             /* 深色文字 */
-  padding: 8px 16px;       /* 內邊距 */
-  border: none;            /* 無邊框 */
-  border-radius: 4px;      /* 圓角 */
-  cursor: pointer;         /* 滑鼠指標變手型 */
+  background-color: #33ffff;  /* 較柔亮青色 */
+  color: #111;                /* 深色文字 */
+  padding: 8px 16px;          /* 內邊距 */
+  border: none;               /* 無邊框 */
+  border-radius: 4px;         /* 圓角 */
+  cursor: pointer;            /* 滑鼠指標變手型 */
 }

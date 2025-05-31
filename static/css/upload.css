@@ -2,8 +2,8 @@
 
 /* 選取檔案按鈕 hover 效果 */
 .upload-block button {
-  background: linear-gradient(45deg, #0ff, #06c);
-  color: #222;
+  background: linear-gradient(45deg, #33ffff, #0099cc);
+  color: #001a1a;
   padding: 10px 20px;
   border-radius: 12px;
   border: none;
@@ -12,17 +12,26 @@
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5);
+  margin-top: auto;        /* 把按鈕推到底部 */
+  margin-bottom: 10px;     /* 與提示文字保持間距 */
 }
 
+/* .upload-hint {
+  color: #aaa;
+  font-size: 0.9rem;
+  font-family: "Orbitron", sans-serif;
+  margin: 0 0 10px 0;
+} */
+
 .upload-block button:hover {
-  background: linear-gradient(45deg, #06c, #0ff);
+  background: linear-gradient(45deg, #0099cc, #33ffff);
   transform: translateY(-3px);
   box-shadow: 0 8px 15px rgba(0, 255, 255, 0.7);
 }
 
 /* 拖曳上傳區塊強化效果 */
 .upload-block.dragover {
-  border: 2px dashed #0ff;
+  border: 2px dashed #33ffff;
   animation: shake 0.3s ease;
   background: linear-gradient(90deg, rgba(0, 255, 255, 0.15), rgba(0, 136, 255, 0.15));
   box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.4);
@@ -30,29 +39,43 @@
 
 /* 圖片預覽淡入效果 */
 .preview-image {
-  animation: fadeIn 0.5s ease;
+  /* animation: fadeIn 2s ease; */
   max-height: 150px;  /* 再小一點 */
   display: block;
-  margin: 10px auto 0 auto; /* 上方10px間距，左右自動置中 */
+  margin: 10px auto 0 auto;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-  object-fit: contain;
+  object-fit: contain; /* 保持圖片比例 */
 }
 
 /* 進度條動畫順暢 */
 .progress-bar {
   height: 10px;
-  background: linear-gradient(90deg, #0ff, #06c);
+  background: linear-gradient(90deg, #33ffff, #0099cc);
   width: 0%;
   transition: width 0.4s ease;
   border-radius: 5px;
-  box-shadow: 0 0 6px #0ff;
+  box-shadow: 0 0 6px #33ffff;
+}
+
+.progress-bar-container {
+  display: none;
+  width: 100%;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+/* 新增動畫 class：只在需要時加上 */
+.fade-in {
+  animation: fadeIn 1.2s ease-out forwards;
 }
 
 /* 淡入動畫 */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.95); } /* 從透明和縮小開始 */
+  to { opacity: 1; transform: scale(1); } /* 最終透明和正常大小 */
 }
 
 /* 拖曳進來時微微晃動提示 */

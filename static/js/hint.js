@@ -29,6 +29,38 @@ function switchMode(mode) {
     }
 }
 
+function createUploadBlockHTML(mode) {
+    return `
+        <input type="file" id="fileInput-${mode}" style="display:none;">
+
+        <div class="file-name" id="fileNameDisplay-${mode}"></div>
+
+        <img id="previewImage-${mode}" class="preview-image" style="display:none;">
+
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <button id="selectButton-${mode}" class="upload-button">選取檔案</button>
+
+        <p class="upload-hint">或拖曳檔案到此</p>
+    `;
+}
+
+
+// function createUploadBlockHTML(mode) {
+//     return `
+//         <input type="file" id="fileInput-${mode}" style="display:none;">
+//         <button id="selectButton-${mode}">選取檔案</button>
+//         <p>或拖曳檔案到此</p>
+//         <div class="file-name" id="fileNameDisplay-${mode}"></div>
+//         <img id="previewImage-${mode}" class="preview-image" style="display:none; max-width: 100%; margin-top: 10px;">
+//         <div class="progress-bar-container" style="display: none; width: 100%; background: #eee; border-radius: 10px; overflow: hidden; margin-top: 10px;">
+//             <div class="progress-bar" style="height: 10px; background: orange; width: 0%; transition: width 0.3s;"></div>
+//         </div>
+//     `;
+// }
+
 // 檔案上傳區事件綁定
 function setupUploadEvents(mode) {
     const fileInput = document.getElementById(`fileInput-${mode}`);
@@ -58,11 +90,22 @@ function setupUploadEvents(mode) {
                 reader.onload = e => {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block';
+
+                    // 先移除舊的動畫 class（若有的話）
+                    previewImage.classList.remove('fade-in');
+
+                    // 觸發重繪（reflow），讓動畫能重新執行
+                    void previewImage.offsetWidth;
+
+                    // 再加上動畫 class
+                    previewImage.classList.add('fade-in');
                 };
                 reader.readAsDataURL(file);
-            } else {
+            }
+            else {
                 previewImage.style.display = 'none';
             }
+            // 顯示進度條
             progressContainer.style.display = 'block';
             progressBar.style.width = '0%';
             let percent = 0;
@@ -129,19 +172,6 @@ function closeModal() {
 function confirmAction() {
     if (currentMode) window.open(`/${currentMode}`, '_blank');
     closeModal();
-}
-
-function createUploadBlockHTML(mode) {
-    return `
-        <input type="file" id="fileInput-${mode}" style="display:none;">
-        <button id="selectButton-${mode}">選取檔案</button>
-        <p>或拖曳檔案到此</p>
-        <div class="file-name" id="fileNameDisplay-${mode}"></div>
-        <img id="previewImage-${mode}" class="preview-image" style="display:none; max-width: 100%; margin-top: 10px;">
-        <div class="progress-bar-container" style="display: none; width: 100%; background: #eee; border-radius: 10px; overflow: hidden; margin-top: 10px;">
-            <div class="progress-bar" style="height: 10px; background: orange; width: 0%; transition: width 0.3s;"></div>
-        </div>
-    `;
 }
 
 window.onload = () => {
