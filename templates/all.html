@@ -3,6 +3,61 @@
 {% block title %}全部顯示{% endblock %}
 
 {% block content %}
-  <h2>全部顯示</h2>
-  <p>所有卡片</p>
+<!-- <h2>全部顯示</h2> -->
+<div style="position: sticky; top: 0; background-color: white; z-index: 100;">
+  <button onclick="filterCards('全部')">全部</button>
+  <button onclick="filterCards('同步')">同步</button>
+  <button onclick="filterCards('超量')">超量</button>
+  <button onclick="filterCards('融合')">融合</button>
+  <button onclick="filterCards('連結')">連結</button>
+  <button onclick="filterCards('魔法')">魔法</button>
+  <button onclick="filterCards('陷阱')">陷阱</button>
+  <button onclick="filterCards('效果')">效果</button>
+  <button onclick="filterCards('通常')">通常</button>
+  <button onclick="filterCards('儀式')">儀式</button>
+  <button onclick="filterCards('靈擺')">靈擺</button>
+</div>
+
+<p>所有卡片</p>
+
+<!-- 每張卡都有一個圖片和文字 -->
+<!-- <div id="card-container">
+  {% for card in cards %}
+  <div class="card-item">
+    <img src="{{ url_for('static', filename='images/' ~ card.image) }}" alt="Card Image" width="200">
+    <pre class="card-text">{{ card.text }}</pre>
+  </div>
+  {% endfor %}
+</div> -->
+
+<script>
+function filterCards(type) {
+  const cards = document.querySelectorAll('.card-item');
+
+  cards.forEach(card => {
+    const text = card.querySelector('.card-text').innerText;
+
+    if (type === '全部') {
+      card.style.display = 'block';
+    } else {
+      // 只找開頭為 "類型:" 的那一行
+      const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
+      if (typeLine && typeLine.includes(type)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+}
+</script>
+
+<style>
+.card-item {
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+</style>
+
 {% endblock %}
