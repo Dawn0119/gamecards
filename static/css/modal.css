@@ -1,62 +1,69 @@
-/* Modal 樣式 */
+/* Modal 樣式：整個彈跳視窗的容器 */
 .modal {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  font-family: sans-serif;
-  color: #eee;
+  position: fixed;               /* 固定定位，讓視窗停留在螢幕中央 */
+  inset: 0;                     /* top:0; right:0; bottom:0; left:0; */
+  background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+  display: flex;                /* 使用 Flexbox 方便置中內容 */
+  align-items: center;          /* 垂直置中 */
+  justify-content: center;      /* 水平置中 */
+  z-index: 9999;                /* 確保浮在最上層 */
+  font-family: sans-serif;      /* 字型設定 */
+  color: #eee;                  /* 文字顏色 */
 }
 
+/* 隱藏 Modal：當加上 hidden 類別時，隱藏彈窗 */
 .modal.hidden {
   display: none;
 }
 
+/* Modal 內容盒子 */
 .modal-box {
-  background-color: #333;
-  padding: 24px;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
-  text-align: center;
+  background-color: #333;           /* 深灰背景 */
+  padding: 24px;                    /* 內邊距 */
+  border-radius: 8px;               /* 圓角 */
+  width: 400px;                     /* 固定寬度 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8); /* 陰影效果 */
+  text-align: center;               /* 文字置中 */
 }
 
+/* Modal 標題 */
 .modal-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #0ff;
+  font-size: 20px;       /* 字體大小 */
+  font-weight: bold;     /* 粗體 */
+  margin-bottom: 12px;   /* 底部外距 */
+  color: #0ff;           /* 亮青色 */
 }
 
+/* Modal 內容訊息 */
 .modal-message {
-  font-size: 16px;
-  margin-bottom: 20px;
-  color: #eee;
+  font-size: 16px;       /* 字體大小 */
+  margin-bottom: 20px;   /* 底部外距 */
+  color: #eee;           /* 文字顏色 */
 }
 
+/* Modal 按鈕容器：水平排列且間隔 */
 .modal-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: flex-end; /* 靠右對齊 */
+  gap: 10px;                 /* 按鈕間隔 */
 }
 
+/* 取消按鈕 */
 .btn-cancel {
-  background-color: #555;
-  color: #eee;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #555;  /* 深灰 */
+  color: #eee;             /* 文字顏色 */
+  padding: 8px 16px;       /* 內邊距 */
+  border: none;            /* 無邊框 */
+  border-radius: 4px;      /* 圓角 */
+  cursor: pointer;         /* 滑鼠指標變手型 */
 }
 
+/* 確認按鈕 */
 .btn-confirm {
-  background-color: #0ff;
-  color: #222;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #0ff;  /* 亮青色 */
+  color: #222;             /* 深色文字 */
+  padding: 8px 16px;       /* 內邊距 */
+  border: none;            /* 無邊框 */
+  border-radius: 4px;      /* 圓角 */
+  cursor: pointer;         /* 滑鼠指標變手型 */
 }

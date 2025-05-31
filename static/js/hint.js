@@ -1,9 +1,34 @@
 let currentMode = null; // 儲存目前開啟的是哪一種模式
 
 function switchMode(mode) {
+    // 隱藏所有模式區塊
     document.querySelectorAll('.mode-container').forEach(el => el.style.display = 'none');
+    // 顯示當前模式區塊
     document.getElementById(`block-${mode}`).style.display = 'block';
+
+    // 移除所有按鈕的 active 樣式
+    document.querySelectorAll('.mode-button').forEach(btn => {
+        btn.classList.remove('mode-one-active', 'mode-all-active', 'mode-choice-active');
+    });
+
+    // 移除所有 large-block 背景樣式
+    document.querySelectorAll('.large-block').forEach(el => {
+        el.classList.remove('mode-one-bg', 'mode-all-bg', 'mode-choice-bg');
+    });
+
+    // 設定目前選取按鈕的 active 樣式
+    const selectedBtn = document.querySelector(`.mode-button[data-mode="${mode}"]`);
+    if (selectedBtn) {
+        selectedBtn.classList.add(`mode-${mode}-active`);
+    }
+
+    // 設定目前區塊的背景樣式，.large-block 在 block-{mode} 下
+    const selectedBlockLarge = document.querySelector(`#block-${mode} .large-block`);
+    if (selectedBlockLarge) {
+        selectedBlockLarge.classList.add(`mode-${mode}-bg`);
+    }
 }
+
 // 檔案上傳區事件綁定
 function setupUploadEvents(mode) {
     const fileInput = document.getElementById(`fileInput-${mode}`);
@@ -93,6 +118,8 @@ function openModal(mode) {
     }
 
     modal.classList.remove('hidden');
+    console.log('openModal called');
+
 }
 
 function closeModal() {
@@ -125,7 +152,6 @@ window.onload = () => {
         setupUploadEvents(mode);
     });
 };
-
 
 // 當網頁向下滾動 20px 時，顯示按鈕
 window.onscroll = function () {
