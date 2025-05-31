@@ -6,7 +6,10 @@
     <title>{% block title %}首頁{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% for css_file in css_files %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=css_file) }}">
+    {% endfor %}
+
 </head>
 
 <body>
@@ -20,43 +23,29 @@
             <button onclick="switchMode('choice')" style="background-color: lightgreen;">自行選擇</button>
         </div>
 
-        <!-- 模式區塊：單張顯示 -->
+        <!-- 模式區塊 -->
         <div id="block-one" class="mode-container" style="display: none;">
             <div class="large-block" style="background-color: orange;">
-                <div class="upload-block">
-                    <p>選取一張檔案</p>
-                    <button>選取檔案</button>
-                    <p>或拖曳檔案到此</p>
-                </div>
+                <div class="upload-block" id="uploadArea-one" data-mode="one"></div>
                 <button class="search-button" onclick="openModal('one')">搜尋</button>
             </div>
         </div>
 
-        <!-- 模式區塊：全部顯示 -->
         <div id="block-all" class="mode-container" style="display: none;">
             <div class="large-block" style="background-color: plum;">
-                <div class="upload-block">
-                    <p>選取一張檔案</p>
-                    <p>或拖曳檔案到此</p>
-                    <button>選取檔案</button>
-                </div>
+                <div class="upload-block" id="uploadArea-all" data-mode="all"></div>
                 <button class="search-button" onclick="openModal('all')">搜尋</button>
             </div>
         </div>
 
-        <!-- 模式區塊：自行選擇 -->
         <div id="block-choice" class="mode-container" style="display: none;">
             <div class="large-block" style="background-color: lightgreen;">
-                <div class="upload-block">
-                    <p>選取一張檔案</p>
-                    <p>或拖曳檔案到此</p>
-                    <button>選取檔案</button>
-                </div>
+                <div class="upload-block" id="uploadArea-choice" data-mode="choice"></div>
                 <button class="search-button" onclick="openModal('choice')">搜尋</button>
             </div>
         </div>
 
-        <!-- 彈跳視窗 Modal -->
+        <!-- 彈跳視窗 -->
         <div id="myModal" class="modal hidden">
             <div class="modal-box">
                 <h2 class="modal-title">提醒</h2>
@@ -67,10 +56,12 @@
                 </div>
             </div>
         </div>
+
         {% endblock %}
         <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
         <script src="{{ url_for('static', filename='js/hint.js') }}"></script>
     </main>
+
     {% include "components/footer.html" %}
 </body>
 
