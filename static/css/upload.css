@@ -2,8 +2,8 @@
 
 /* 選取檔案按鈕 hover 效果 */
 .upload-block button {
-  background-color: #52a4f1df; /* 橘色主調 */
-  color: white;
+  background-color: #0ff; /* 橘色主調 */
+  color: #222;
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
@@ -13,14 +13,14 @@
 }
 
 .upload-block button:hover {
-  background-color: #e68900;
+  background-color: #2128ff76;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* 拖曳上傳區塊強化效果 */
 .upload-block.dragover {
-  border: 2px dashed #ff9800;
+  border: 2px dashed #0ff;
   animation: shake 0.3s ease;
   background-color: rgba(255, 238, 200, 0.6);
 }
@@ -36,7 +36,7 @@
 /* 進度條動畫順暢 */
 .progress-bar {
   height: 10px;
-  background: orange;
+  background: #0ff;
   width: 0%;
   transition: width 0.4s ease;
   border-radius: 5px;

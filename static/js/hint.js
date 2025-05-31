@@ -1,14 +1,5 @@
 let currentMode = null; // 儲存目前開啟的是哪一種模式
 
-// function switchMode(mode) {
-//     // 先全部隱藏
-//     document.getElementById('block-one').style.display = 'none';
-//     document.getElementById('block-all').style.display = 'none';
-//     document.getElementById('block-choice').style.display = 'none';
-
-//     // 顯示對應區塊
-//     document.getElementById(`block-${mode}`).style.display = 'block';
-// }
 function switchMode(mode) {
     document.querySelectorAll('.mode-container').forEach(el => el.style.display = 'none');
     document.getElementById(`block-${mode}`).style.display = 'block';
@@ -22,8 +13,6 @@ function setupUploadEvents(mode) {
     const previewImage = document.getElementById(`previewImage-${mode}`);
     const progressContainer = uploadArea.querySelector('.progress-bar-container');
     const progressBar = uploadArea.querySelector('.progress-bar');
-
-    // if (!fileInput || !selectButton || !uploadArea || !fileNameDisplay) return;
 
     // 按鈕點擊觸發 input 點擊
     selectButton.onclick = (e) => {

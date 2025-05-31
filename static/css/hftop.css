@@ -5,12 +5,15 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
+  background-color: #222;
+  color: #eee;
+  font-family: sans-serif;
 }
 
 /* Header */
 header {
-  background-color: #1efff8;
-  color: rgb(171, 2, 250);
+  background-color: #333;
+  color: #0ff;
   padding: 1rem;
 }
 
@@ -21,19 +24,20 @@ header {
 }
 
 .nav-menu a {
-  color: rgb(30, 29, 29);
+  color: #0ff;
   margin-left: 1rem;
   text-decoration: none;
 }
 
 .nav-menu a:hover {
   text-decoration: underline;
+  color: #fff;
 }
 
 /* Footer */
 footer {
-  background-color: #71a6f1;
-  color: #f3fffb;
+  background-color: #333;
+  color: #eee;
   text-align: center;
   padding: 0; /* 上下內距 */
   margin-top: auto;
@@ -48,13 +52,13 @@ footer {
   z-index: 99;
   border: none;
   outline: none;
-  background-color: #4CAF50;
-  color: white;
+  /* background-color: #0ff; */
+  color: #ff1111;
   cursor: pointer;
   padding: 15px;
   border-radius: 10px;
 }
 
 #myBtn:hover {
-  background-color: #3e8e41;
+  background-color: rgba(126, 126, 126, 0.433);
 }
