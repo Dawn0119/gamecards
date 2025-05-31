@@ -3,22 +3,154 @@
 {% block title %}全部顯示{% endblock %}
 
 {% block content %}
-<!-- <h2>全部顯示</h2> -->
-<div style="position: sticky; top: 0; background-color: white; z-index: 100;">
-  <button onclick="filterCards('全部')">全部</button>
-  <button onclick="filterCards('同步')">同步</button>
-  <button onclick="filterCards('超量')">超量</button>
-  <button onclick="filterCards('融合')">融合</button>
-  <button onclick="filterCards('連結')">連結</button>
-  <button onclick="filterCards('魔法')">魔法</button>
-  <button onclick="filterCards('陷阱')">陷阱</button>
-  <button onclick="filterCards('效果')">效果</button>
-  <button onclick="filterCards('通常')">通常</button>
-  <button onclick="filterCards('儀式')">儀式</button>
-  <button onclick="filterCards('靈擺')">靈擺</button>
+
+<div class="filter-bar">
+  <h2 class="text-lg font-bold mb-2">卡片類型</h2>
+  <!-- <div class="container mx-auto"></div> -->
+  <button onclick="filterCards(this, '全部')" class="active">全部</button>
+  <button onclick="filterCards(this, '同步')">同步</button>
+  <button onclick="filterCards(this, '超量')">超量</button>
+  <button onclick="filterCards(this, '融合')">融合</button>
+  <button onclick="filterCards(this, '連結')">連結</button>
+  <button onclick="filterCards(this, '魔法')">魔法</button>
+  <button onclick="filterCards(this, '陷阱')">陷阱</button>
+  <button onclick="filterCards(this, '效果')">效果</button>
+  <button onclick="filterCards(this, '通常')">通常</button>
+  <button onclick="filterCards(this, '儀式')">儀式</button>
+  <button onclick="filterCards(this, '靈擺')">靈擺</button>
 </div>
 
 <p>所有卡片</p>
+<div class="h-[3000px] bg-gray-100">...............
+  ...........................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ..................................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  ...........................................................................
+  ..............................................................
+  ..............................................................
+  ............................................................
+  ...........................................................
+  .....................................................
+  ..............................................</div>
+
+
+
+<script>
+  function filterCards(button, type) {
+    // 高亮目前選中的按鈕
+    document.querySelectorAll('.filter-bar button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    button.classList.add('active');
+
+    // 篩選卡片
+    const cards = document.querySelectorAll('.card-item');
+    cards.forEach(card => {
+      const text = card.querySelector('.card-text').innerText;
+      const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
+
+      if (type === '全部') {
+        card.style.display = 'block';
+      } else if (typeLine && typeLine.includes(type)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+
+<style>
+  .filter-bar {
+    position: sticky;
+    /* 出現卷軸固定在最上面 */
+    top: 0;    /* 距離頂部 */
+    /* left: 0;    距離左側
+    right: 0;    距離右側 */
+    justify-content: center;
+    background-color: white;
+    /* 背景不透明 */
+    z-index: 1000;
+    /* 在上層 */
+    flex-wrap: wrap;
+    /* ✅ 允許換行 */
+
+    display: flex;
+    /* overflow-x: auto;    橫向捲動 */
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .filter-bar button {
+    padding: 0.5em 0.5em;    /* 上下左右間距 */
+    margin: 0.1em;    /* 按鈕間距 */
+    min-width: 80px;        /* 防止太窄 */
+    font-size: 14px;    /* 固定字體 / 1.5vw 隨視窗縮放 */
+     flex-shrink: 0;          /* 防止自動壓縮 */
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .filter-bar button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .filter-bar button.active {
+    background-color: #007bff;
+    color: white;
+  }
+</style>
+{% endblock %}
 
 <!-- 每張卡都有一個圖片和文字 -->
 <!-- <div id="card-container">
@@ -30,34 +162,36 @@
   {% endfor %}
 </div> -->
 
-<script>
-function filterCards(type) {
-  const cards = document.querySelectorAll('.card-item');
+<!-- <script>
+  function filterCards(type) {
+    const cards = document.querySelectorAll('.card-item');
 
-  cards.forEach(card => {
-    const text = card.querySelector('.card-text').innerText;
+    cards.forEach(card => {
+      const text = card.querySelector('.card-text').innerText;
 
-    if (type === '全部') {
-      card.style.display = 'block';
-    } else {
-      // 只找開頭為 "類型:" 的那一行
-      const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
-      if (typeLine && typeLine.includes(type)) {
+      if (type === '全部') {
         card.style.display = 'block';
       } else {
-        card.style.display = 'none';
+        // 只找開頭為 "類型:" 的那一行
+        const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
+        if (typeLine && typeLine.includes(type)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
       }
-    }
-  });
-}
-</script>
+    });
+  }
+</script> -->
 
-<style>
-.card-item {
-  margin: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-</style>
-
-{% endblock %}
+<!-- <style>
+  /* 卡片 
+  .card-item {
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 12px;
+    background-color: #fff;
+} */
+</style> -->

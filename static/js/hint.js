@@ -12,19 +12,33 @@ function switchMode(mode) {
 }
 // 預設顯示第一個模式
 window.onload = () => switchMode('one');
-function openModal(mode) {
+function openModal(mode, buttonText) {
     currentMode = mode;
     const modal = document.getElementById('myModal');
+    const title = document.querySelector('.modal-title'); // class
     const message = document.getElementById('modalMessage');
 
-    if (mode === 'all') {
-        message.textContent = '⚠️ 由於卡片過多，顯示速度會較慢，是否確認依然要選取此方式做查詢？';
-    } else if (mode === 'choice') {
-        message.textContent = '📌 請確認已正確勾選要顯示的檔案，是否繼續查詢？';
-    } else if (mode === 'one') {
-        message.textContent = '📄 目前選擇為單張顯示，是否確定要查詢此檔案？';
-    }
+    // 對應每個模式的標題文字
+    const modeTitleMap = {
+        one: '📌 單張顯示',
+        all: '⚠️ 全部顯示',
+        choice: '👆 自行選擇'
+    };
 
+    // 設定標題
+    title.textContent = modeTitleMap[mode] || '提醒';
+
+    if (mode === 'all') {
+        message.innerHTML = '由於卡片過多<br>顯示速度會較慢<br>是否確定以此方式做搜尋？';
+    } else if (mode === 'choice') {
+        message.innerHTML = '不會顯示全部資訊<br>需自行選擇想要呈現的卡片<br>是否確定以此方式做搜尋？';
+    } else if (mode === 'one') {
+        message.innerHTML = '只會顯示一張卡片<br>是否確定以此方式做搜尋？';
+    }
+    // // 設定標題為按鈕文字
+    // title.textContent = buttonText;
+
+    // 顯示彈跳視窗
     modal.classList.remove('hidden');
 }
 
