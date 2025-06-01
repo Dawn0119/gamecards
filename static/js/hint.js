@@ -145,9 +145,9 @@ function openModal(mode) {
     const message = document.getElementById('modalMessage');
 
     const modeTitleMap = {
-        one: '📌 單張顯示',
+        one: '單張顯示 📌',
         all: '⚠️ 全部顯示',
-        choice: '👆 自行選擇'
+        choice: '自行選擇 👆'
     };
 
     title.textContent = modeTitleMap[mode] || '提醒';

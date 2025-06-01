@@ -8,7 +8,7 @@ body {
   background-color: #0a0a0a;  /* 更深的背景，帶有科技感 */
   color: #dff9ff;  /* 淺藍灰色文字（稍微偏白） */
   font-family: "Orbitron", sans-serif;  /* 更有科技感的字體（需在 HTML 引入） */
-  /* 不再加 overflow: hidden，保留捲軸功能 */
+  font-weight: 600;
 }
 
 /* Header */
@@ -28,16 +28,32 @@ header {
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  margin: 0;
+  margin: 5px 50;
+  margin-left: 3rem; /* 左側留出空間 */
+}
+
+.logo:hover {
+  color: #ffffff;
+  text-decoration: none;
+  transform: scale(1.2);
+}
+
+.nav-menu {
+  /* position: sticky;
+  top: 0;
+  z-index: 9999; */
+  color: #33ffff;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+  text-decoration: none; /* 移除預設下劃線 */
+  letter-spacing: 0.5px;
 }
 
 .nav-menu a {
-  color: #33ffff;
-  /* margin-left: 2rem; */
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 0.5px;
-  margin: 0 0.9rem; /* 左右各 0.75rem 的間距（總 1.5rem）*/
+  margin: 0 1.2rem; /* 左右各1.2rem的間距 */
 }
 
 /* .nav-menu a + a {
@@ -51,12 +67,19 @@ header {
 
 /* Font Awesome 圖示大小調整 */
 .nav-menu i {
-  font-size: 1.4rem; /* 預設約1rem，改大一點更醒目 */
+  font-size: 1.4rem;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-menu a:hover i {
-  transform: scale(1.1); /* 滑過微放大效果 */
+  transform: scale(2); /* 滑過微放大效果 */
+}
+
+main {
+  padding: 2rem;
+  background-color: #0a0a0a;
+  color: #dff9ff;  /* 微藍白文字 */
+  font-family: "Orbitron", sans-serif;
 }
 
 /* Footer */
