@@ -40,9 +40,9 @@
 /* 圖片預覽淡入效果 */
 .preview-image {
   /* animation: fadeIn 2s ease; */
-  max-height: 150px;  /* 再小一點 */
+  max-height: 100px;  /* 再小一點 */
   display: block;
-  margin: 10px auto 0 auto;
+  /* margin: 10px auto 0 auto; */
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
   object-fit: contain; /* 保持圖片比例 */

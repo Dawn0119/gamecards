@@ -2,8 +2,8 @@
 
 {% block title %}⌕ 全部顯示{% endblock %}
 
-{% block content %}
 
+{% block filter %}
 <div class="filter-bar">
   <h2 class="text-lg font-bold mb-2">卡片類型</h2>
   <button onclick="filterCards(this, '全部')" class="active">全部</button>
@@ -18,7 +18,8 @@
   <button onclick="filterCards(this, '儀式')">儀式</button>
   <button onclick="filterCards(this, '靈擺')">靈擺</button>
 </div>
-
+{% endblock %}
+{% block content %}
 <p>所有卡片</p>
 <div class="h-[3000px] bg-gray-100">
   ............... (測試用內容)<br>
@@ -78,18 +79,15 @@
   .filter-bar {
     position: sticky;
     top: 0;
-    margin-top: -2rem;
-    margin-left: -2rem;
-    margin-right: -2rem;
+    width: 100vw;
 
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
-    background-color: #ff0000;
+    background-color: #111;
     /* #111; */
     /* z-index: 1000; */
-    width: 100%;
     left: 0;
     right: 0;
     gap: 20px;
