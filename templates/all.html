@@ -52,13 +52,11 @@
 
 <script>
   function filterCards(button, type) {
-    // 高亮目前選中的按鈕
     document.querySelectorAll('.filter-bar button').forEach(btn => {
       btn.classList.remove('active');
     });
     button.classList.add('active');
 
-    // 篩選卡片
     const cards = document.querySelectorAll('.card-item');
     cards.forEach(card => {
       const text = card.querySelector('.card-text').innerText;
@@ -86,8 +84,6 @@
     flex-wrap: wrap;
 
     background-color: #111;
-    /* #111; */
-    /* z-index: 1000; */
     left: 0;
     right: 0;
     gap: 20px;

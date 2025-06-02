@@ -5,18 +5,17 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  background-color: #0a0a0a;  /* 更深的背景，帶有科技感 */
-  color: #dff9ff;  /* 淺藍灰色文字（稍微偏白） */
-  font-family: "Orbitron", sans-serif;  /* 更有科技感的字體（需在 HTML 引入） */
+  background-color: #0a0a0a;
+  color: #dff9ff;
+  font-family: "Orbitron", sans-serif;
   font-weight: 600;
 }
 
-/* Header */
 header {
-  background-color: #111;  /* 更沉的深灰 */
+  background-color: #111;
   color: #33ffff;
   padding: 1rem;
-  box-shadow: 0 2px 12px rgba(51, 255, 255, 0.2);  /* 柔和發光陰影 */
+  box-shadow: 0 2px 12px rgba(51, 255, 255, 0.2);
 }
 
 .header-container {
@@ -29,7 +28,7 @@ header {
   font-size: 1.8rem;
   font-weight: bold;
   margin: 5px 50;
-  margin-left: 3rem; /* 左側留出空間 */
+  margin-left: 3rem;
 }
 
 .logo:hover {
@@ -39,13 +38,10 @@ header {
 }
 
 .nav-menu {
-  /* position: sticky;
-  top: 0;
-  z-index: 9999; */
   color: #33ffff;
   margin-top: 0.5rem;
   margin-right: 2rem;
-  text-decoration: none; /* 移除預設下劃線 */
+  text-decoration: none;
   letter-spacing: 0.5px;
 }
 
@@ -53,39 +49,33 @@ header {
   text-decoration: none;
   font-weight: bold;
   letter-spacing: 0.5px;
-  margin: 0 1.2rem; /* 左右各1.2rem的間距 */
+  margin: 0 1.2rem;
 }
-
-/* .nav-menu a + a {
-  margin-left: 5rem;  只有第二個圖案左邊有距離 
-} */
 
 .nav-menu a:hover {
   text-decoration: underline;
   color: #ffffff;
 }
 
-/* Font Awesome 圖示大小調整 */
 .nav-menu i {
   font-size: 1.4rem;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-menu a:hover i {
-  transform: scale(2); /* 滑過微放大效果 */
+  transform: scale(2);
 }
 
 main {
   padding: 2rem;
   background-color: #0a0a0a;
-  color: #dff9ff;  /* 微藍白文字 */
+  color: #dff9ff;
   font-family: "Orbitron", sans-serif;
 }
 
-/* Footer */
 footer {
-  background-color: #111;  /* 與 header 統一 */
-  color: #bbb;  /* 更柔的灰色 */
+  background-color: #111;
+  color: #bbb;
   text-align: center;
   padding: 0;
   margin-top: auto;
@@ -93,7 +83,6 @@ footer {
   border-top: 1px solid #333;
 }
 
-/* 向上按鈕 */
 #myBtn {
   display: none;
   position: fixed;
@@ -106,8 +95,8 @@ footer {
   cursor: pointer;
   padding: 15px;
   border-radius: 10px;
-  background-color: #1e1e1e;  /* 深色背景 */
-  box-shadow: 0 0 10px rgba(255, 50, 50, 0.4);  /* 淡淡紅光 */
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(255, 50, 50, 0.4);
 }
 
 #myBtn:hover {

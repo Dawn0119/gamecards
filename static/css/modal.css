@@ -1,69 +1,94 @@
-/* Modal 樣式：整個彈跳視窗的容器 */
 .modal {
-  position: fixed;               /* 固定定位，讓視窗停留在螢幕中央 */
-  inset: 0;                     /* top:0; right:0; bottom:0; left:0; */
-  background-color: rgba(0, 0, 0, 0.85); /* 更深一點的半透明背景 */
-  display: flex;                /* 使用 Flexbox 方便置中內容 */
-  align-items: center;          /* 垂直置中 */
-  justify-content: center;      /* 水平置中 */
-  z-index: 9999;                /* 確保浮在最上層 */
-  font-family: sans-serif;      /* 字型設定 */
-  color: #e0f7ff;               /* 文字顏色（和主色一致） */
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: "Orbitron", sans-serif;
+  color: #e0f7ff;
 }
 
-/* 隱藏 Modal：當加上 hidden 類別時，隱藏彈窗 */
 .modal.hidden {
   display: none;
 }
 
-/* Modal 內容盒子 */
 .modal-box {
-  background-color: #1a1a1a;           /* 深灰背景（更沉穩） */
-  padding: 24px;                    /* 內邊距 */
-  border-radius: 8px;               /* 圓角 */
-  width: 400px;                     /* 固定寬度 */
-  box-shadow: 0 5px 18px rgba(0, 255, 255, 0.2); /* 更有科技感的光影 */
-  text-align: center;               /* 文字置中 */
+  background: linear-gradient(135deg, #0a2a43 0%, #33ffff 100%);
+  padding: 32px 28px 28px 28px;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 0 40px #33ffff55, 0 0 8px #0a2a43;
+  text-align: center;
+  border: 2px solid #33ffff;
+  font-family: "Orbitron", sans-serif;
 }
 
-/* Modal 標題 */
 .modal-title {
-  font-size: 20px;       /* 字體大小 */
-  font-weight: bold;     /* 粗體 */
-  margin-bottom: 12px;   /* 底部外距 */
-  color: #33ffff;        /* 更柔亮青色 */
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+  color: #33ffff;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px #33ffff88;
+  font-family: "Orbitron", sans-serif;
 }
 
-/* Modal 內容訊息 */
 .modal-message {
-  font-size: 16px;       /* 字體大小 */
-  margin-bottom: 20px;   /* 底部外距 */
-  color: #e0f7ff;        /* 統一文字色調 */
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  color: #e0f7ff;
+  text-shadow: 0 0 4px #33ffff44;
+  font-family: "Orbitron", sans-serif;
 }
 
-/* Modal 按鈕容器：水平排列且間隔 */
 .modal-buttons {
   display: flex;
-  justify-content: flex-end; /* 靠右對齊 */
-  gap: 10px;                 /* 按鈕間隔 */
+  justify-content: flex-end;
+  gap: 16px;
 }
 
-/* 取消按鈕 */
 .btn-cancel {
-  background-color: #444;  /* 暗灰 */
-  color: #eee;             /* 文字顏色 */
-  padding: 8px 16px;       /* 內邊距 */
-  border: none;            /* 無邊框 */
-  border-radius: 4px;      /* 圓角 */
-  cursor: pointer;         /* 滑鼠指標變手型 */
+  background: linear-gradient(90deg, #222 60%, #0a2a43 100%);
+  color: #33ffff;
+  padding: 8px 22px;
+  border: 1.5px solid #33ffff;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 0 8px #33ffff33;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
-/* 確認按鈕 */
+.btn-cancel:hover {
+  background: linear-gradient(90deg, #33ffff 0%, #0a2a43 100%);
+  color: #111;
+  box-shadow: 0 0 16px #33ffff99, 0 0 8px #0a2a43;
+  transform: translateY(-2px) scale(1.05);
+}
+
 .btn-confirm {
-  background-color: #33ffff;  /* 較柔亮青色 */
-  color: #111;                /* 深色文字 */
-  padding: 8px 16px;          /* 內邊距 */
-  border: none;               /* 無邊框 */
-  border-radius: 4px;         /* 圓角 */
-  cursor: pointer;            /* 滑鼠指標變手型 */
+  background: linear-gradient(90deg, #00ffb3 0%, #0a4332 100%);
+  color: #fff;
+  padding: 8px 22px;
+  border: 1.5px solid #00ffb3;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 0 12px #00ffb399;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.btn-confirm:hover {
+  background: linear-gradient(90deg, #33ffff 0%, #0a2a43 100%);
+  color: #111;
+  box-shadow: 0 0 24px #33ffff99, 0 0 8px #0a2a43;
+  transform: translateY(-2px) scale(1.05);
 }
