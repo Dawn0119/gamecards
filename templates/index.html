@@ -56,8 +56,32 @@
                 </div>
             </div>
         </div>
-        <div id="myModal" class="modal hidden">
-            <div class="modal-box">
+
+        <!-- 個別 Modal -->
+        <div id="myModal-one" class="modal modal-one hidden">
+            <div class="modal-box modal-bg-one">
+                <h2 class="modal-title">提醒</h2>
+                <p class="modal-message" id="modalMessage">這裡是提示文字</p>
+                <div class="modal-buttons">
+                    <button onclick="closeModal()" class="btn-cancel">取消</button>
+                    <button onclick="confirmAction()" class="btn-confirm">確認</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal-all" class="modal modal-all hidden">
+            <div class="modal-box modal-bg-all">
+                <h2 class="modal-title">提醒</h2>
+                <p class="modal-message" id="modalMessage">這裡是提示文字</p>
+                <div class="modal-buttons">
+                    <button onclick="closeModal()" class="btn-cancel">取消</button>
+                    <button onclick="confirmAction()" class="btn-confirm">確認</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal-choice" class="modal modal-choice hidden">
+            <div class="modal-box modal-bg-choice">
                 <h2 class="modal-title">提醒</h2>
                 <p class="modal-message" id="modalMessage">這裡是提示文字</p>
                 <div class="modal-buttons">

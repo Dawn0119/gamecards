@@ -8,35 +8,21 @@ function switchMode(mode) {
         btn.classList.remove('mode-one-active', 'mode-all-active', 'mode-choice-active');
     });
 
-    document.querySelectorAll('.large-block').forEach(el => {
-        el.classList.remove('mode-one-bg', 'mode-all-bg', 'mode-choice-bg');
-    });
-
     const selectedBtn = document.querySelector(`.mode-button[data-mode="${mode}"]`);
     if (selectedBtn) {
         selectedBtn.classList.add(`mode-${mode}-active`);
-    }
-
-    const selectedBlockLarge = document.querySelector(`#block-${mode} .large-block`);
-    if (selectedBlockLarge) {
-        selectedBlockLarge.classList.add(`mode-${mode}-bg`);
     }
 }
 
 function createUploadBlockHTML(mode) {
     return `
         <input type="file" id="fileInput-${mode}" style="display:none;">
-
         <div class="file-name" id="fileNameDisplay-${mode}"></div>
-
         <img id="previewImage-${mode}" class="preview-image" style="display:none;">
-
-        <div class="progress-bar-container">
-            <div class="progress-bar"></div>
+        <div class="progress-bar-container-${mode}">
+            <div class="progress-bar-${mode}" id="progressBar-${mode}"></div>
         </div>
-
-        <button id="selectButton-${mode}" class="upload-button">選取檔案</button>
-
+        <button id="selectButton-${mode}" class="upload-button upload-button-${mode}">選取檔案</button>
         <p class="upload-hint">或拖曳檔案到此</p>
     `;
 }
@@ -47,8 +33,8 @@ function setupUploadEvents(mode) {
     const uploadArea = document.getElementById(`uploadArea-${mode}`);
     const fileNameDisplay = document.getElementById(`fileNameDisplay-${mode}`);
     const previewImage = document.getElementById(`previewImage-${mode}`);
-    const progressContainer = uploadArea.querySelector('.progress-bar-container');
-    const progressBar = uploadArea.querySelector('.progress-bar');
+    const progressContainer = uploadArea.querySelector(`.progress-bar-container-${mode}`);
+    const progressBar = document.getElementById(`progressBar-${mode}`);
 
     selectButton.onclick = (e) => {
         e.stopPropagation();
@@ -60,31 +46,38 @@ function setupUploadEvents(mode) {
         if (fileInput.files.length > 0) {
             const file = fileInput.files[0];
             fileNameDisplay.textContent = `已選取：${file.name}`;
-
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = e => {
                     previewImage.src = e.target.result;
                     previewImage.style.display = 'block';
-
                     previewImage.classList.remove('fade-in');
-
                     void previewImage.offsetWidth;
-
                     previewImage.classList.add('fade-in');
                 };
                 reader.readAsDataURL(file);
-            }
-            else {
+            } else {
                 previewImage.style.display = 'none';
             }
+
             progressContainer.style.display = 'block';
             progressBar.style.width = '0%';
+
             let percent = 0;
             const interval = setInterval(() => {
                 percent += 10;
                 progressBar.style.width = `${percent}%`;
-                if (percent >= 100) clearInterval(interval);
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressContainer.style.transition = 'opacity 1s ease';
+                        progressContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            progressContainer.style.opacity = '1';
+                        }, 1000);
+                    }, 800);
+                }
             }, 100);
         }
     };
@@ -93,12 +86,10 @@ function setupUploadEvents(mode) {
         e.preventDefault();
         uploadArea.classList.add('dragover');
     };
-
     uploadArea.ondragleave = e => {
         e.preventDefault();
         uploadArea.classList.remove('dragover');
     };
-
     uploadArea.ondrop = e => {
         e.preventDefault();
         uploadArea.classList.remove('dragover');
@@ -117,9 +108,9 @@ function openModal(mode) {
     }
 
     currentMode = mode;
-    const modal = document.getElementById('myModal');
-    const title = document.querySelector('.modal-title');
-    const message = document.getElementById('modalMessage');
+    const modal = document.getElementById(`myModal-${mode}`);
+    const title = modal.querySelector('.modal-title');
+    const message = modal.querySelector('.modal-message');
 
     const modeTitleMap = {
         one: '單張顯示 📌',
@@ -138,12 +129,12 @@ function openModal(mode) {
     }
 
     modal.classList.remove('hidden');
-    // console.log('openModal called');
-
 }
 
 function closeModal() {
-    document.getElementById('myModal').classList.add('hidden');
+    if (currentMode) {
+        document.getElementById(`myModal-${currentMode}`).classList.add('hidden');
+    }
 }
 
 function confirmAction() {
@@ -159,18 +150,18 @@ function confirmAction() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
-    .then(html => {
-        const newWindow = window.open('', '_blank');
-        newWindow.document.open();
-        newWindow.document.write(html);
-        newWindow.document.close();
-    })
-    .catch(err => {
-        console.error('錯誤:', err);
-        alert('❌ 發送資料失敗，請稍後再試');
-    });
-    // if (currentMode) window.open(`/${currentMode}`, '_blank');
+        .then(response => response.text())
+        .then(html => {
+            const newWindow = window.open('', '_blank');
+            newWindow.document.open();
+            newWindow.document.write(html);
+            newWindow.document.close();
+        })
+        .catch(err => {
+            console.error('錯誤:', err);
+            alert('❌ 發送資料失敗，請稍後再試');
+        });
+
     closeModal();
 }
 
@@ -182,18 +173,3 @@ window.onload = () => {
         setupUploadEvents(mode);
     });
 };
-
-window.onscroll = function () {
-    const btn = document.getElementById("myBtn");
-    if (!btn) return;
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        btn.style.display = "block";
-    } else {
-        btn.style.display = "none";
-    }
-};
-
-function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-}
