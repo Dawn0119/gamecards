@@ -1,4 +1,3 @@
-/* Upload Buttons */
 .upload-button-one {
   background: linear-gradient(45deg, #33ffff, #0099cc);
   color: #001a1a;
@@ -25,18 +24,23 @@
   transition: all 0.3s ease;
 }
 
-/* Hover 效果 */
+.upload-block button:hover {
+  transform: translateY(-3px);
+}
+
 .upload-button-one:hover {
   background: linear-gradient(45deg, #0099cc, #33ffff);
+  box-shadow: 0 8px 15px rgba(0, 255, 255, 0.7);
 }
 .upload-button-all:hover {
   background: linear-gradient(45deg, #2a0a43, #7f7fff);
+  box-shadow: 0 8px 15px rgba(183, 0, 255, 0.7);
 }
 .upload-button-choice:hover {
   background: linear-gradient(45deg, #0a4332, #00ffb3);
+  box-shadow: 0 8px 15px rgba(0, 255, 162, 0.7);
 }
 
-/* 分開的 progress bar */
 .progress-bar-one,
 .progress-bar-all,
 .progress-bar-choice {
@@ -46,7 +50,6 @@
   border-radius: 5px;
 }
 
-/* 個別樣式 */
 .progress-bar-one {
   background: linear-gradient(90deg, #33ffff, #0099cc);
   box-shadow: 0 0 6px #33ffff;
@@ -71,19 +74,6 @@
   margin-top: 10px;
 }
 
-/* Modal 分開背景 */
-.modal-bg-one {
-  background: #ccffff;
-}
-.modal-bg-all {
-  background: #1a0033;
-  color: #fff;
-}
-.modal-bg-choice {
-  background: #ccffe6;
-}
-
-/* preview */
 .preview-image {
   max-height: 100px;
   display: block;

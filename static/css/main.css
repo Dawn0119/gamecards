@@ -53,6 +53,21 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.mode-one-bg {
+  background: linear-gradient(135deg, #0a2a43 0%, #33ffff 100%);
+  box-shadow: 0 0 50px #33ffff33;
+}
+
+.mode-all-bg {
+  background: linear-gradient(135deg, #2a0a43 0%, #7f7fff 100%);
+  box-shadow: 0 0 50px #b97fff4e;
+}
+
+.mode-choice-bg {
+  background: linear-gradient(135deg, #0a4332 0%, #00ffb3 100%);
+  box-shadow: 0 0 50px #00ffb333;
+}
+
 .mode-one-active,
 .mode-all-active,
 .mode-choice-active {
@@ -75,21 +90,6 @@
   background: linear-gradient(90deg, #00ffb3 0%, #0a4332 100%) !important;
   box-shadow: 0 0 18px #00ffb3, 0 0 4px #0a4332;
   border: 1.5px solid #00ffb3;
-}
-
-.mode-one-bg {
-  background: linear-gradient(135deg, #0a2a43 0%, #33ffff 100%);
-  box-shadow: 0 0 50px #33ffff33;
-}
-
-.mode-all-bg {
-  background: linear-gradient(135deg, #2a0a43 0%, #7f7fff 100%);
-  box-shadow: 0 0 50px #b97fff4e;
-}
-
-.mode-choice-bg {
-  background: linear-gradient(135deg, #0a4332 0%, #00ffb3 100%);
-  box-shadow: 0 0 50px #00ffb333;
 }
 
 .all-block {
@@ -164,7 +164,7 @@
   margin-left: 10px;
 }
 
-.search-button {
+/* .search-button {
   background: linear-gradient(90deg, #33ffff 0%, #0a2a43 100%);
   color: #ffffff;
   padding: 1% 2%;
@@ -181,6 +181,21 @@
   margin-right: 10px;
   letter-spacing: 1px;
   text-shadow: 0 0 6px #33ffff88;
+} */
+
+.search-button {
+  padding: 1% 2%;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+  position: static;
+  margin-left: 30px;
+  margin-right: 10px;
+  letter-spacing: 1px;
 }
 
 .search-button:hover {
@@ -188,4 +203,25 @@
   box-shadow: 0 0 24px #00ffb399, 0 0 8px #0a4332;
   transform: translateY(-2px) scale(1.05);
   color: #fff;
+}
+
+.search-button-one {
+  background: linear-gradient(90deg, #33ffff 0%, #0a2a43 100%);
+  /* color: #ffffff; */
+  box-shadow: 0 0 16px #33ffff99, 0 0 4px #0a2a43;
+  text-shadow: 0 0 6px #33ffff88;
+}
+
+.search-button-all {
+  background: linear-gradient(90deg, #7f7fff 0%, #2a0a43 100%);
+  /* color: #ffffff; */
+  box-shadow: 0 0 16px #7f7fff99, 0 0 4px #2a0a43;
+  text-shadow: 0 0 6px #7f7fff88;
+}
+
+.search-button-choice {
+  background: linear-gradient(90deg, #00ffb3 0%, #0a4332 100%);
+  /* color: #ffffff; */
+  box-shadow: 0 0 16px #00ffb399, 0 0 4px #0a4332;
+  text-shadow: 0 0 6px #00ffb388;
 }

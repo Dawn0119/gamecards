@@ -19,10 +19,39 @@
   padding: 32px 28px 28px 28px;
   border-radius: 20px;
   width: 400px;
-  box-shadow: 0 0 40px #33ffff55, 0 0 8px #0a2a43;
+  /* box-shadow: 0 0 40px #33ffff55, 0 0 8px #0a2a43; */
   text-align: center;
   border: 2px solid #33ffff;
   font-family: "Orbitron", sans-serif;
+}
+
+/* .modal-bg-one {
+  background: #ccffff;
+}
+.modal-bg-all {
+  background: #1a0033;
+  color: #fff;
+}
+.modal-bg-choice {
+  background: #ccffe6;
+} */
+
+.modal-bg-one {
+  background: linear-gradient(135deg, #0a2a43 0%, #33ffff 100%);
+  color: #000;
+  border: 2px solid #0a2a43;
+}
+
+.modal-bg-all {
+  background: linear-gradient(135deg, #2a0a43 0%, #7f7fff 100%);
+  color: #fff;
+  border: 2px solid #2a0a43;
+}
+
+.modal-bg-choice {
+  background: linear-gradient(135deg, #0a4332 0%, #00ffb3 100%);
+  color: #000;
+  border: 2px solid #0a4332;
 }
 
 .modal-title {

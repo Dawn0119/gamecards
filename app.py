@@ -43,9 +43,10 @@ def match():
     category = request.form.get("category")
     file = request.files.get("image")
 
-    if not file or not category:
-        return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8') 
-
+    # if not file or not category:
+    #     return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8') 
+    # if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+    #     return Response("<p>❌ 請上傳有效的圖片檔案</p>", status=400, mimetype='text/html; charset=utf-8')
     img_data = file.read()
     try:
         if request.path.endswith("one"):

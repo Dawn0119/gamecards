@@ -103,7 +103,16 @@ function setupUploadEvents(mode) {
 function openModal(mode) {
     const fileInput = document.getElementById(`fileInput-${mode}`);
     if (!fileInput || fileInput.files.length === 0) {
-        alert('❌ 請正確上傳一張圖檔');
+        alert('💥 請上傳一張圖檔');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const allowedExts = ['jpg', 'jpeg', 'png', 'jfif', 'webp'];
+    const fileName = file.name.toLowerCase();
+    const ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+    if (!allowedExts.includes(ext)) {
+        alert('❌ 僅支援 jpg、jpeg、png、jfif、webp 格式的圖檔');
         return;
     }
 
