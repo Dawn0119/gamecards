@@ -32,7 +32,7 @@ def match():
     file = request.files.get("image")
 
     if not file or not category:
-        return Response("<p>❌ 缺少類別或圖片</p>", status=400, mimetype='text/html; charset=utf-8')
+        return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8')
 
     img_data = file.read()
     try:
@@ -47,7 +47,7 @@ def match():
 def multi_match():
     file = request.files.get("image")
     if not file:
-        return Response("<p>❌ 缺少圖片</p>", status=400, mimetype='text/html; charset=utf-8')
+        return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8')
 
     # 儲存上傳圖片
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename))
@@ -75,7 +75,8 @@ def multi_match():
         try:
             os.remove(image_path)
         except Exception as e:
-            print(f"⚠️ 無法刪除上傳圖片：{image_path}, 錯誤：{e}")
+            print(f"⚠️ 無法刪除上傳圖片：{image_path}, 錯誤：{e}")\
+                
 
 if __name__ == '__main__':
     app.run(debug=True)

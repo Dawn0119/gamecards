@@ -110,6 +110,12 @@ function setupUploadEvents(mode) {
 }
 
 function openModal(mode) {
+    const fileInput = document.getElementById(`fileInput-${mode}`);
+    if (!fileInput || fileInput.files.length === 0) {
+        alert('❌ 請正確上傳一張圖檔');
+        return;
+    }
+
     currentMode = mode;
     const modal = document.getElementById('myModal');
     const title = document.querySelector('.modal-title');
@@ -132,7 +138,7 @@ function openModal(mode) {
     }
 
     modal.classList.remove('hidden');
-    console.log('openModal called');
+    // console.log('openModal called');
 
 }
 
@@ -141,7 +147,30 @@ function closeModal() {
 }
 
 function confirmAction() {
-    if (currentMode) window.open(`/${currentMode}`, '_blank');
+    if (!currentMode) return;
+
+    const fileInput = document.getElementById(`fileInput-${currentMode}`);
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('category', currentMode);
+    formData.append('image', file);
+
+    fetch(`/match_${currentMode}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(html => {
+        const newWindow = window.open('', '_blank');
+        newWindow.document.open();
+        newWindow.document.write(html);
+        newWindow.document.close();
+    })
+    .catch(err => {
+        console.error('錯誤:', err);
+        alert('❌ 發送資料失敗，請稍後再試');
+    });
+    // if (currentMode) window.open(`/${currentMode}`, '_blank');
     closeModal();
 }
 
