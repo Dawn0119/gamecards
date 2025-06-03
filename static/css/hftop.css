@@ -35,6 +35,7 @@ header {
   color: #ffffff;
   text-decoration: none;
   transform: scale(1.2);
+  cursor: url('../images/index_Resize60.png') 25 38, auto;
 }
 
 .nav-menu {

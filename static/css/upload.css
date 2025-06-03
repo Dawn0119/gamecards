@@ -1,6 +1,6 @@
 .upload-button-one {
   background: linear-gradient(45deg, #33ffff, #0099cc);
-  color: #001a1a;
+  /* color: #001a1a; */
 }
 .upload-button-all {
   background: linear-gradient(45deg, #7f7fff, #2a0a43);
@@ -8,7 +8,7 @@
 }
 .upload-button-choice {
   background: linear-gradient(45deg, #00ffb3, #0a4332);
-  color: #000;
+  /* color: #000; */
 }
 .upload-button-one,
 .upload-button-all,
@@ -22,10 +22,12 @@
   margin-top: auto;
   margin-bottom: 10px;
   transition: all 0.3s ease;
+  color: #000000;
 }
 
 .upload-block button:hover {
   transform: translateY(-3px);
+  color: #ffffff;
 }
 
 .upload-button-one:hover {
