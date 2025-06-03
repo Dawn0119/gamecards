@@ -168,6 +168,15 @@
   left: 5%;
   padding: 0 10px;
   box-sizing: border-box;
+
+  /* margin-top: auto; */
+  /* 自動推到底部 */
+  /* padding: 0 10px; */
+  /* position: relative; */
+  /* 取代原本 absolute */
+  /* bottom: unset; */
+  /* 清除固定位置 */
+  /* left: unset; */
 }
 
 .hint-text {
@@ -176,7 +185,9 @@
   margin: 0;
   font-family: "Orbitron", sans-serif;
   font-weight: 600;
-  margin-left: 10px;
+  margin-left: 5px;
+
+  /* font-size: clamp(1.2rem, 1.2vw, 1.2rem); */
 }
 
 /* .search-button {
@@ -209,8 +220,15 @@
   transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
   position: static;
   margin-left: 30px;
-  margin-right: 10px;
+  margin-right: 5px;
   letter-spacing: 1px;
+
+  /* padding: 0.8vw 1.6vw;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  border-radius: 0.8vw;
+  margin-left: 2vw;
+  margin-right: 1vw;
+  letter-spacing: 0.5px; */
 }
 
 .search-button:hover {

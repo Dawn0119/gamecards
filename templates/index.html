@@ -21,9 +21,9 @@
         {% block content %}
         <div class="all-block">
             <div class="button-container">
-                <button class="mode-button mode-one-active" data-mode="one" onclick="switchMode('one')">單張顯示</button>
-                <button class="mode-button" data-mode="all" onclick="switchMode('all')">全部顯示</button>
-                <button class="mode-button" data-mode="choice" onclick="switchMode('choice')">自行選擇</button>
+                <button class="mode-button mode-one-active" data-mode="one" onclick="switchMode('one')" title="僅查一張卡">單張顯示</button>
+                <button class="mode-button" data-mode="all" onclick="switchMode('all')" title="一次查多張卡">全部顯示</button>
+                <button class="mode-button" data-mode="choice" onclick="switchMode('choice')" title="我考慮要查哪一張">自行選擇</button>
             </div>
 
             <div id="block-one" class="mode-container" style="display: none;">
