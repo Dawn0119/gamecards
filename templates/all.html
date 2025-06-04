@@ -2,7 +2,6 @@
 
 {% block title %}⌕ 全部顯示{% endblock %}
 
-
 {% block filter %}
 <div class="filter-bar">
   <h2 class="text-lg font-bold mb-2">卡片類型</h2>
@@ -19,117 +18,80 @@
   <button onclick="filterCards(this, '靈擺')">靈擺</button>
 </div>
 {% endblock %}
-{% block content %}
-<p>所有卡片</p>
-<div class="h-[3000px] bg-gray-100">
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>............... (測試用內容)<br>
-  ............... (測試用內容)<br>
-  ............... (測試用內容)
-</div>
 
+{% block content %}
+<h2>多卡辨識結果</h2>
+<div id="cardResult">
+  <p>🔄 正在辨識中，請稍候...</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
 <script>
-  function filterCards(button, type) {
+window.onload = () => {
+    const base64 = sessionStorage.getItem('uploadedImage');
+    if (!base64) {
+        console.log("⚠️ 沒有圖片可辨識");
+        return;
+    }
+
+    console.log("📤 發送辨識請求（多卡）...");
+
+    const byteString = atob(base64.split(',')[1]);
+    const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
+    const file = new File([blob], 'upload.jpg', { type: mimeString });
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch('/match_all', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(html => {
+        const interval = setInterval(() => {
+            const result = document.getElementById('cardResult');
+            if (result) {
+                result.innerHTML = html;
+                clearInterval(interval);
+                sessionStorage.removeItem('uploadedImage');
+            }
+        }, 100);
+    })
+    .catch(err => {
+        console.error('❌ 發送資料失敗', err);
+        const result = document.getElementById('cardResult');
+        if (result) result.innerHTML = '❌ 發送資料失敗';
+    });
+};
+
+// 類型篩選功能
+function filterCards(button, type) {
     document.querySelectorAll('.filter-bar button').forEach(btn => {
-      btn.classList.remove('active');
+        btn.classList.remove('active');
     });
     button.classList.add('active');
 
     const cards = document.querySelectorAll('.card-item');
     cards.forEach(card => {
-      const text = card.querySelector('.card-text').innerText;
-      const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
+        const text = card.querySelector('.card-text')?.innerText || '';
+        const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
 
-      if (type === '全部') {
-        card.style.display = 'block';
-      } else if (typeLine && typeLine.includes(type)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
+        if (type === '全部') {
+            card.style.display = 'block';
+        } else if (typeLine && typeLine.includes(type)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
     });
-  }
+}
 </script>
-
-<style>
-  .filter-bar {
-    position: sticky;
-    top: 0;
-    width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    background-color: #111;
-    left: 0;
-    right: 0;
-    gap: 20px;
-    padding: 10px;
-    font-family: "Orbitron", sans-serif;
-    box-sizing: border-box;
-  }
-
-  .filter-bar button {
-    padding: 0.5em 0.5em;
-    margin: 0.1em;
-    min-width: 80px;
-    font-size: 1rem;
-    font-family: "Orbitron", sans-serif;
-    font-weight: 700;
-    border-radius: 12px;
-    border: 1.5px solid #33ffff;
-    background: linear-gradient(90deg, #111 60%, #0a2a43 100%);
-    color: #33ffff;
-    box-shadow: 0 0 12px #33ffff33, 0 0 2px #0a2a43;
-    cursor: pointer;
-    letter-spacing: 1px;
-    text-shadow: 0 0 6px #33ffff88;
-    transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-  }
-
-  .filter-bar button:hover {
-    background: linear-gradient(90deg, #33ffff 0%, #0a2a43 100%);
-    color: #000000;
-    box-shadow: 0 0 24px #33ffff99, 0 0 8px #0a2a43;
-    transform: translateY(-2px) scale(1.05);
-  }
-
-  .filter-bar button.active {
-    background: linear-gradient(90deg, #00ffb3 0%, #0a4332 100%);
-    color: #fff;
-    border: 1.5px solid #00ffb3;
-    box-shadow: 0 0 24px #00ffb399, 0 0 8px #0a4332;
-  }
-
-  .bg-gray-100 {
-    background-color: #0a0a0a;
-    color: #eee;
-    font-family: "Orbitron", sans-serif;
-    padding: 20px;
-  }
-</style>
-
 {% endblock %}

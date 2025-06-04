@@ -157,11 +157,19 @@ function confirmAction() {
         return;
     }
 
-    // 將圖檔暫存在 window.sessionStorage 中
     const reader = new FileReader();
     reader.onload = function (e) {
         sessionStorage.setItem('uploadedImage', e.target.result);
-        window.location.href = "/one";  // ✅ 導向等待頁面
+
+        if (currentMode === 'one') {
+            window.location.href = "/one";
+        } else if (currentMode === 'all') {
+            window.location.href = "/all";
+        } else if (currentMode === 'choice') {
+            window.location.href = "/choice";
+        } else {
+            alert("⚠️ 不明的模式");
+        }
     };
     reader.readAsDataURL(file);
     closeModal();
@@ -171,7 +179,10 @@ window.onload = () => {
     const blockOne = document.getElementById('block-one');
     if (!blockOne) return; // ❗不是首頁就直接結束
 
-    switchMode('one');
+    const activeBtn = document.querySelector('.mode-button.mode-one-active, .mode-button.mode-all-active, .mode-button.mode-choice-active');
+    const initialMode = activeBtn ? activeBtn.dataset.mode : 'one';
+    switchMode(initialMode); 
+
     ['one', 'all', 'choice'].forEach(mode => {
         const area = document.getElementById(`uploadArea-${mode}`);
         area.innerHTML = createUploadBlockHTML(mode);
