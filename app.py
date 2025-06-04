@@ -1,12 +1,13 @@
 import os
 from flask import Flask, render_template, request, Response
+from backend.matcher import process_image
 
 app = Flask(__name__)
 
 def get_css_files():
     css_folder = os.path.join(app.static_folder, 'css')
     return [f'css/{f}' for f in os.listdir(css_folder) if f.endswith('.css')]
-
+'''
 def process_image_one(category, img_data):
     return render_template('one.html', css_files=get_css_files(), result="這是一張卡片辨識結果")
 
@@ -15,7 +16,7 @@ def process_image_all(category, img_data):
 
 def process_image_choice(category, img_data):
     return render_template('choice.html', css_files=get_css_files(), result="選擇卡片辨識結果")
-
+'''
 @app.route('/')
 def index():
     return render_template('index.html', css_files=get_css_files())
@@ -37,6 +38,21 @@ def choice():
     return render_template('choice.html', css_files=get_css_files())
 
 @app.route('/match_one', methods=['POST'])
+def match_one():
+    file = request.files.get("image")
+    if not file:
+        print("❌ 沒有收到圖片")
+        return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8')
+
+    img_data = file.read()
+    try:
+        result_html = process_image(img_data)
+        return result_html  # ✅ 直接回傳辨識結果的 HTML 片段
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return Response(f"<p>處理錯誤：{str(e)}</p>", status=500, mimetype='text/html; charset=utf-8')
+
 @app.route('/match_all', methods=['POST'])
 @app.route('/match_choice', methods=['POST'])
 def match():

@@ -151,30 +151,26 @@ function confirmAction() {
 
     const fileInput = document.getElementById(`fileInput-${currentMode}`);
     const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('category', currentMode);
-    formData.append('image', file);
 
-    fetch(`/match_${currentMode}`, {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.text())
-        .then(html => {
-            const newWindow = window.open('', '_blank');
-            newWindow.document.open();
-            newWindow.document.write(html);
-            newWindow.document.close();
-        })
-        .catch(err => {
-            console.error('錯誤:', err);
-            alert('❌ 發送資料失敗，請稍後再試');
-        });
+    if (!file) {
+        alert('❌ 請先上傳圖片');
+        return;
+    }
 
+    // 將圖檔暫存在 window.sessionStorage 中
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        sessionStorage.setItem('uploadedImage', e.target.result);
+        window.location.href = "/one";  // ✅ 導向等待頁面
+    };
+    reader.readAsDataURL(file);
     closeModal();
 }
 
 window.onload = () => {
+    const blockOne = document.getElementById('block-one');
+    if (!blockOne) return; // ❗不是首頁就直接結束
+
     switchMode('one');
     ['one', 'all', 'choice'].forEach(mode => {
         const area = document.getElementById(`uploadArea-${mode}`);

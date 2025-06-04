@@ -3,6 +3,54 @@
 {% block title %}單張顯示{% endblock %}
 
 {% block content %}
-  <h2>這張卡片的資訊</h2>
-  <p>單張</p>
+<h2>這張卡片的資訊</h2>
+<div id="cardResult">
+  <p>🔄 正在辨識中，請稍候...</p>
+</div>
+{% endblock %}
+
+{% block filter %}{% endblock %}
+
+{% block scripts %}
+<script>
+window.onload = () => {
+    const base64 = sessionStorage.getItem('uploadedImage');
+    if (!base64) {
+        console.log("⚠️ 沒有圖片可辨識");
+        return;
+    }
+
+    console.log("📤 發送辨識請求...");
+
+    const byteString = atob(base64.split(',')[1]);
+    const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
+    const file = new File([blob], 'upload.jpg', { type: mimeString });
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch('/match_one', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(html => {
+        const result = document.getElementById('cardResult');
+        if (result) result.innerHTML = html;
+        else document.body.innerHTML = html;
+        sessionStorage.removeItem('uploadedImage');
+    })
+    .catch(err => {
+        console.error('❌ 發送資料失敗', err);
+        const result = document.getElementById('cardResult');
+        if (result) result.innerHTML = '❌ 發送資料失敗';
+    });
+};
+</script>
 {% endblock %}
