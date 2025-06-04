@@ -46,7 +46,7 @@ def match_single_crop(des1, index, descs, names):
 
 
 def read_info(matched_name):
-    card_id = os.path.splitext(matched_name)[0].zfill(8)  # 正確補零
+    card_id = os.path.splitext(matched_name)[0].zfill(8)  # 補零
     matches = [
         fname for fname in os.listdir(INFO_DIR)
         if fname.startswith(card_id) and fname.lower().endswith(".txt")
@@ -63,10 +63,14 @@ def read_info(matched_name):
 
     info = info.replace("圖片 URL:", "")
     info = html.escape(info, quote=False).replace("\n", " <br>")
+
     return re.sub(r"(https?://[^\s]+)", r'<img src="\1" alt="圖片" />', info)
 
 
 def process_multi_image(image_bytes_list):
+    """
+    接收多張裁切圖的 byte list，進行比對並回傳 HTML 結果
+    """
     paths, names, kp_attrs, descs, all_desc = load_or_build_cache("all")
     index = build_or_load_index(all_desc, descs[0].shape[1])
 
@@ -95,3 +99,14 @@ def process_multi_image(image_bytes_list):
         result_text += r + "<hr>"
 
     return result_text
+
+
+def run_multi_match_from_crops(crop_paths):
+    """
+    整合用函式：給裁切圖檔路徑清單，自動讀成 bytes 並送入辨識流程
+    """
+    image_bytes_list = []
+    for path in crop_paths:
+        with open(path, "rb") as f:
+            image_bytes_list.append(f.read())
+    return process_multi_image(image_bytes_list)
