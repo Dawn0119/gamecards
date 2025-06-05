@@ -5,17 +5,19 @@
 {% block filter %}
 <div class="filter-bar">
   <h2 class="text-lg font-bold mb-2">卡片類型</h2>
-  <button onclick="filterCards(this, '全部')" class="active">全部</button>
-  <button onclick="filterCards(this, '同步')">同步</button>
-  <button onclick="filterCards(this, '超量')">超量</button>
-  <button onclick="filterCards(this, '融合')">融合</button>
-  <button onclick="filterCards(this, '連結')">連結</button>
-  <button onclick="filterCards(this, '魔法')">魔法</button>
-  <button onclick="filterCards(this, '陷阱')">陷阱</button>
-  <button onclick="filterCards(this, '效果')">效果</button>
-  <button onclick="filterCards(this, '通常')">通常</button>
-  <button onclick="filterCards(this, '儀式')">儀式</button>
-  <button onclick="filterCards(this, '靈擺')">靈擺</button>
+  <div class="button-group">
+    <button onclick="filterCards(this, '全部')" class="active">全部</button>
+    <button onclick="filterCards(this, '同步')">同步</button>
+    <button onclick="filterCards(this, '超量')">超量</button>
+    <button onclick="filterCards(this, '融合')">融合</button>
+    <button onclick="filterCards(this, '連結')">連結</button>
+    <button onclick="filterCards(this, '魔法')">魔法</button>
+    <button onclick="filterCards(this, '陷阱')">陷阱</button>
+    <button onclick="filterCards(this, '效果')">效果</button>
+    <button onclick="filterCards(this, '通常')">通常</button>
+    <button onclick="filterCards(this, '儀式')">儀式</button>
+    <button onclick="filterCards(this, '靈擺')">靈擺</button>
+  </div>
 </div>
 {% endblock %}
 
@@ -56,14 +58,11 @@ window.onload = () => {
     })
     .then(response => response.text())
     .then(html => {
-        const interval = setInterval(() => {
-            const result = document.getElementById('cardResult');
-            if (result) {
-                result.innerHTML = html;
-                clearInterval(interval);
-                sessionStorage.removeItem('uploadedImage');
-            }
-        }, 100);
+        const result = document.getElementById('cardResult');
+        if (result) {
+            result.innerHTML = html;
+            sessionStorage.removeItem('uploadedImage');
+        }
     })
     .catch(err => {
         console.error('❌ 發送資料失敗', err);
@@ -71,6 +70,34 @@ window.onload = () => {
         if (result) result.innerHTML = '❌ 發送資料失敗';
     });
 };
+
+// 萃取主分類
+function parseCategory(text) {
+    const lines = text.split('<br>').map(line => line.trim());
+    let typeLine = lines.find(line => line.startsWith('類型:'));
+    if (!typeLine) return '通常';
+
+    let cardType = typeLine.replace('類型:', '').trim();
+
+    const CATEGORIES = ['魔法', '陷阱'];
+    for (const cat of CATEGORIES) {
+        if (cardType.includes(cat)) return cat;
+    }
+
+    if (cardType.includes('靈擺')) return '靈擺';
+
+    const special = ['同步', '超量', '融合', '連結', '儀式'];
+    for (const sp of special) {
+        if (cardType.includes(sp)) return sp;
+    }
+
+    if (cardType.includes('怪獸')) {
+        if (cardType.includes('效果')) return '效果';
+        else return '通常';
+    }
+
+    return '通常';
+}
 
 // 類型篩選功能
 function filterCards(button, type) {
@@ -81,12 +108,9 @@ function filterCards(button, type) {
 
     const cards = document.querySelectorAll('.card-item');
     cards.forEach(card => {
-        const text = card.querySelector('.card-text')?.innerText || '';
-        const typeLine = text.split('\n').find(line => line.trim().startsWith('類型:'));
-
-        if (type === '全部') {
-            card.style.display = 'block';
-        } else if (typeLine && typeLine.includes(type)) {
+        const text = card.querySelector('.card-text')?.innerHTML || '';
+        const category = parseCategory(text);
+        if (type === '全部' || category === type) {
             card.style.display = 'block';
         } else {
             card.style.display = 'none';

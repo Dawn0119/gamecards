@@ -98,7 +98,6 @@ def process_multi_image(image_bytes_list):
     result_html = f"<p>辨識出 {total_cards} 張卡片（{len(sorted_items)} 種）：</p>\n<div class='card-list'>\n"
     for card_id, (count, info) in sorted_items:
         result_html += f"""
-        <br>
         <div class="card-item">
             <div class="card-text">
                 <p><strong>{count} 張</strong></p>

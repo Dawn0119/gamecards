@@ -16,6 +16,7 @@
 <body>
   {% include "components/header.html" %}
   <main>
+    {% block filter %}{% endblock %}
     {% block content %}
     <div class="all-block">
       <div class="button-container">
