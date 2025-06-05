@@ -7,6 +7,8 @@ import html
 from tqdm import tqdm
 from collections import defaultdict
 from backend.image_processing import load_or_build_cache
+from backend.avg_price import get_average_price, to_fullwidth, convert_jpy_to_twd
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INFO_DIR = os.path.join(BASE_DIR, "data", "cards_info")
@@ -59,10 +61,35 @@ def read_info(matched_name):
     print(f"🔍 匹配資訊檔案：{info_file}")
 
     with open(info_file, encoding="utf-8") as f:
-        info = f.read()
+        lines = f.readlines()
 
-    info = html.escape(info, quote=False).replace("圖片 URL:", "").replace("\n", " <br>")
+    card_name_jp = ""
+    for line in lines:
+        if line.startswith("日文名:"):
+            card_name_jp = line.replace("日文名:", "").strip()
+            break
+
+    info = "".join(lines)
+    info = html.escape(info, quote=False).replace("圖片 URL:", "")
+    info = info.replace("\n", " <br>")
     info = re.sub(r"(https?://[^\s]+)", r'<img src="\1" alt="圖片" />', info)
+
+    # Get average price using correct Japanese name
+    fullwidth_name = to_fullwidth(card_name_jp)
+    average_price = get_average_price(fullwidth_name)
+
+
+
+    average_price = get_average_price(fullwidth_name)
+    if average_price is not None:
+        from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
+        price_twd = convert_jpy_to_twd(average_price)
+        if price_twd:
+            info += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
+        else:
+            info += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
+    else:
+        info += "<br><b>平均價格:</b> 價格未找到"
 
     return info, card_id
 
