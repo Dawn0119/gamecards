@@ -78,9 +78,7 @@ def read_info(matched_name):
     fullwidth_name = to_fullwidth(card_name_jp)
     average_price = get_average_price(fullwidth_name)
 
-
-
-    average_price = get_average_price(fullwidth_name)
+    
     if average_price is not None:
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)

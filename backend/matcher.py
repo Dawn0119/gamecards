@@ -105,7 +105,6 @@ def process_image(img_data):
 
 
 
-    average_price = get_average_price(fullwidth_name)
     if average_price is not None:
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)
