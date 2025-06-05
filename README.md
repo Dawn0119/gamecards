@@ -34,10 +34,3 @@ gamecards/
 
 # 安裝套件
 pip install -r requirements.txt
-flask
-opencv-python
-numpy
-pip install faiss-cpu
-tqdm
-pip install inference-sdk
-werkzeug
