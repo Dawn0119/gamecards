@@ -12,7 +12,8 @@ body {
 }
 
 header {
-  background-color: #111;
+  /* background-color: #111; */
+  background-color: #f43434;
   color: #33ffff;
   padding: 1rem;
   box-shadow: 0 2px 12px rgba(51, 255, 255, 0.2);
@@ -89,7 +90,7 @@ footer {
   position: fixed;
   bottom: 20px;
   right: 30px;
-  z-index: 99;
+  z-index: 9999;
   border: none;
   outline: none;
   color: #ff6666;

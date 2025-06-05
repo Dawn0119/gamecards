@@ -1,18 +1,19 @@
 .filter-bar {
   position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: #111;
+  /* background-color: #111; */
+  background-color: #d7f434;
   left: 0;
   right: 0;
   gap: 20px;
   padding: 10px;
   font-family: "Orbitron", sans-serif;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 999;
 }
 
 .filter-bar button {
@@ -45,6 +46,13 @@
   color: #fff;
   border: 1.5px solid #00ffb3;
   box-shadow: 0 0 24px #00ffb399, 0 0 8px #0a4332;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .bg-gray-100 {

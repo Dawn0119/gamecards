@@ -6,6 +6,19 @@
   padding: 1rem;
 }
 
+/* .card-item {
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+.card-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+} */
+
 /* 單張卡片外框 */
 .card-item {
   border: 1px solid #33ffff44;
@@ -33,3 +46,21 @@
   font-size: 1.2rem;
   color: #00ffff;
 }
+
+
+/* .card-item {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  word-break: break-word;
+}
+
+.card-text {
+  overflow-wrap: break-word;
+}
+
+.card-text img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+} */
