@@ -115,11 +115,6 @@ def match_all():
             print(f"⚠️ 無法刪除上傳圖檔: {e}")
 
 # ----------- 分類模式（保留路由，但尚未使用）-----------
-<<<<<<< HEAD
-# @app.route('/match_choice', methods=['POST'])
-# def match_choice():
-#     return Response("<p>⚠️ 尚未實作分類選擇模式</p>", mimetype='text/html; charset=utf-8')
-=======
 @app.route('/upload_choice_image', methods=['POST'])
 def upload_choice_image():
     file = request.files.get("image")
@@ -167,7 +162,6 @@ from flask import send_from_directory
 @app.route("/uploads/<path:filename>")
 def uploaded_file(filename):
     return send_from_directory("uploads", filename)
->>>>>>> main
 
 # ----------- 啟動 -----------
 if __name__ == '__main__':
