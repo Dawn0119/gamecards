@@ -12,8 +12,7 @@ body {
 }
 
 header {
-  /* background-color: #111; */
-  background-color: #f43434;
+  background-color: #111;
   color: #33ffff;
   padding: 1rem;
   box-shadow: 0 2px 12px rgba(51, 255, 255, 0.2);
@@ -32,9 +31,21 @@ header {
   margin-left: 3rem;
 }
 
-.logo:hover {
+/* .logo:hover {
   color: #ffffff;
   text-decoration: none;
+  transform: scale(1.2);
+  cursor: url('../images/index_Resize60.png') 25 38, auto;
+} */
+
+.logo a {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.logo a:hover {
+  color: #ffffff;
   transform: scale(1.2);
   cursor: url('../images/index_Resize60.png') 25 38, auto;
 }

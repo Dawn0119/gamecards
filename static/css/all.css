@@ -1,3 +1,11 @@
+main.page-all {
+  background-color: #0a0a0a;
+  padding: 0 0 2rem 0;
+  /* border-radius: 8px; */
+  color: #dff9ff;
+  font-family: "Orbitron", sans-serif;
+}
+
 .filter-bar {
   position: sticky;
   top: 0;
@@ -5,8 +13,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  /* background-color: #111; */
-  background-color: #d7f434;
+  background-color: #111;
   left: 0;
   right: 0;
   gap: 20px;
@@ -60,4 +67,11 @@
   color: #eee;
   font-family: "Orbitron", sans-serif;
   padding: 20px;
+}
+
+.all-cards {
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; */
+  padding: 2rem;
 }

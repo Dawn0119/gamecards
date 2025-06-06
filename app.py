@@ -24,7 +24,7 @@ def one():
 
 @app.route('/all')
 def all():
-    return render_template('all.html', css_files=get_css_files())
+    return render_template('all.html', css_files=get_css_files(), page_class='page-all')
 
 @app.route('/choice')
 def choice():
@@ -81,9 +81,9 @@ def match_all():
             print(f"⚠️ 無法刪除上傳圖檔: {e}")
 
 # ----------- 分類模式（保留路由，但尚未使用）-----------
-@app.route('/match_choice', methods=['POST'])
-def match_choice():
-    return Response("<p>⚠️ 尚未實作分類選擇模式</p>", mimetype='text/html; charset=utf-8')
+# @app.route('/match_choice', methods=['POST'])
+# def match_choice():
+#     return Response("<p>⚠️ 尚未實作分類選擇模式</p>", mimetype='text/html; charset=utf-8')
 
 # ----------- 啟動 -----------
 if __name__ == '__main__':

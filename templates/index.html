@@ -15,8 +15,9 @@
 
 <body>
   {% include "components/header.html" %}
-  {% block filter %}{% endblock %}
-  <main>
+  <main class="{{ page_class | default('') }}">
+    {% block filter %}{% endblock %}
+
     {% block content %}
     <div class="all-block">
       <div class="button-container">
@@ -55,9 +56,7 @@
         </div>
       </div>
     </div>
-    {% endblock %}
-    
-    <!-- Modal 區塊們 -->
+
     <div id="myModal-one" class="modal modal-one hidden">
       <div class="modal-box modal-bg-one">
         <h2 class="modal-title">提醒</h2>
@@ -90,16 +89,17 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
     <button onclick="topFunction()" id="myBtn" title="Go to top">
       <i class="fa-solid fa-circle-up fa-2x"></i>
     </button>
   </main>
 
-{% include "components/footer.html" %}
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/hint.js') }}"></script>
-{% endblock %}
+  {% include "components/footer.html" %}
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/hint.js') }}"></script>
+  {% endblock %}
 </body>
 
 </html>
