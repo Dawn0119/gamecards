@@ -96,7 +96,7 @@
         statusBox.id = "resultBox";
         statusBox.innerHTML = `<span style="color:#00e0ff; font-size: 20px;">🔍 正在辨識中，請稍候...</span>`;
         statusBox.style.marginTop = "40px";
-        statusBox.style.textAlign = "center";
+        // statusBox.style.textAlign = "center";
         container.appendChild(statusBox);
 
         // Fetch match result
@@ -108,11 +108,20 @@
         .then(res => res.json())
         .then(data => {
           if (data.result) {
-            statusBox.innerHTML = `<span style="color:#00ff88; font-size: 24px;">✅ 辨識完成：${data.result}</span>`;
+            statusBox.innerHTML = `
+              <div class="card-list">
+                <div class="card-item">
+                  <div class="card-text">
+                    ✅ 辨識完成：
+                    ${data.result}
+                  </div>
+                </div>
+              </div>`;
           } else {
             statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
           }
         })
+
         .catch(err => {
           console.error(err);
           statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 傳送錯誤</span>`;
