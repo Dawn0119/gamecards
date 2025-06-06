@@ -1,30 +1,18 @@
-# choice_flow.py
-
 import os
-import cv2
 import json
-from backend.box_drawer import draw_boxes
-from backend.crop import crop_card  # 假設你在 crop.py 裡有一個 crop_card 函式
+import cv2
+from flask import request, jsonify
+from werkzeug.utils import secure_filename
+from backend.detection_api import get_roboflow_predictions
 
-def process_uploaded_image(image_path, predictions, output_dir):
-    """
-    根據 Roboflow 回傳的預測框資料：
-    1. 在圖片上畫出所有框，儲存 boxed.jpg
-    2. 對每個框進行裁切，儲存 crop_0.jpg ~ crop_n.jpg
+def process_uploaded_image(image_path, predictions_raw, output_dir):
+    # ✅ safely unpack predictions from dict
+    predictions = predictions_raw.get("predictions", []) if isinstance(predictions_raw, dict) else predictions_raw
 
-    :param image_path: 上傳圖像的路徑（原圖）
-    :param predictions: Roboflow 回傳的 predictions list
-    :param output_dir: 儲存裁切圖片與 boxed.jpg 的資料夾
-    :return: boxed 圖片路徑, 裁切圖檔清單
-    """
     os.makedirs(output_dir, exist_ok=True)
     img = cv2.imread(image_path)
-    if img is None:
-        raise ValueError(f"❌ 無法讀取圖片：{image_path}")
     height, width = img.shape[:2]
-
-    # 儲存裁切圖的檔名
-    cropped_files = []
+    cropped_paths = []
 
     for i, pred in enumerate(predictions):
         x, y, w, h = int(pred["x"]), int(pred["y"]), int(pred["width"]), int(pred["height"])
@@ -37,10 +25,42 @@ def process_uploaded_image(image_path, predictions, output_dir):
 
         crop_path = os.path.join(output_dir, f"crop_{i}.jpg")
         cv2.imwrite(crop_path, crop)
-        cropped_files.append(crop_path)
+        cropped_paths.append(crop_path)
 
-    # 呼叫 box_drawer 畫框與標號
     boxed_path = os.path.join(output_dir, "boxed.jpg")
     draw_boxes(image_path, predictions, boxed_path)
+    return boxed_path, cropped_paths
 
-    return boxed_path, cropped_files
+def draw_boxes(image_path, predictions, save_path):
+    img = cv2.imread(image_path)
+    for i, pred in enumerate(predictions):
+        x, y, w, h = int(pred["x"]), int(pred["y"]), int(pred["width"]), int(pred["height"])
+        x1, y1 = x - w // 2, y - h // 2
+        x2, y2 = x + w // 2, y + h // 2
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(img, str(i + 1), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+    cv2.imwrite(save_path, img)
+
+def handle_choice_flow(image):
+    upload_dir = "uploads"
+    os.makedirs(upload_dir, exist_ok=True)
+
+    image_path = os.path.join(upload_dir, secure_filename(image.filename))
+    image.save(image_path)
+
+    # ✅ Predict
+    predictions = get_roboflow_predictions(image_path)
+    # ✅ Save prediction result for later use in /choice preview
+    with open(os.path.join(upload_dir, "roboflow_result.json"), "w", encoding="utf-8") as f:
+        json.dump({"predictions": predictions}, f, ensure_ascii=False, indent=2)
+
+
+    # ✅ Draw and crop
+    boxed_path, cropped_paths = process_uploaded_image(image_path, predictions, upload_dir)
+
+    return {
+        "boxed_path": boxed_path,
+        "crops": cropped_paths,
+        "count": len(cropped_paths),
+        "predictions": predictions
+    }
