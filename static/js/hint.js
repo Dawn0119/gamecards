@@ -159,18 +159,36 @@ function confirmAction() {
 
     const reader = new FileReader();
     reader.onload = function (e) {
-        sessionStorage.setItem('uploadedImage', e.target.result);
+    sessionStorage.setItem('uploadedImage', e.target.result);
 
-        if (currentMode === 'one') {
-            window.location.href = "/one";
-        } else if (currentMode === 'all') {
-            window.location.href = "/all";
-        } else if (currentMode === 'choice') {
+    if (currentMode === 'one') {
+        window.location.href = "/one";
+    } else if (currentMode === 'all') {
+        window.location.href = "/all";
+    } else if (currentMode === 'choice') {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('/upload_choice_image', {
+        method: 'POST',
+        body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
             window.location.href = "/choice";
-        } else {
-            alert("⚠️ 不明的模式");
-        }
+            } else {
+            alert('❌ 圖片上傳失敗');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('❌ 圖片上傳失敗');
+        });
+    } else {
+        alert("⚠️ 不明的模式");
+    }
     };
+
     reader.readAsDataURL(file);
     closeModal();
 }

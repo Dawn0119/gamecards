@@ -105,7 +105,6 @@ def process_image(img_data):
 
 
 
-    average_price = get_average_price(fullwidth_name)
     if average_price is not None:
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)
@@ -118,3 +117,12 @@ def process_image(img_data):
 
 
     return info
+
+#choice
+def process_image_file(image_path):
+    """
+    給定圖像路徑（例如 crop_0.jpg），直接辨識。
+    """
+    with open(image_path, "rb") as f:
+        img_data = f.read()
+    return process_image(img_data)

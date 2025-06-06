@@ -11,13 +11,19 @@
   {% for css_file in css_files %}
   <link rel="stylesheet" href="{{ url_for('static', filename=css_file) }}">
   {% endfor %}
+
 </head>
 
 <body>
   {% include "components/header.html" %}
+<<<<<<< HEAD
   <main class="{{ page_class | default('') }}">
     {% block filter %}{% endblock %}
 
+=======
+  {% block filter %}{% endblock %}
+  <main>
+>>>>>>> main
     {% block content %}
     <div class="all-block">
       <div class="button-container">
