@@ -5,14 +5,22 @@
 {% block filter %}{% endblock %}
 
 {% block content %}
-<h2>自行選擇</h2>
-
+<h2>自行選擇想查詢的卡片資訊</h2>
+<p>選擇</p>
 <div id="choiceContainer">
   <img id="choiceImage" src="/uploads/boxed.jpg">
   <img id="hoverPreview">
 </div>
 
-<p>選擇想看的</p>
+<style>
+    main.page-choice {
+        background: linear-gradient(135deg, #181c2f 0%, #2d3350 30%, #232946 50%, #1a1a2e 100%);
+        color: #dff9ff;
+        font-family: "Orbitron", sans-serif;
+        height: 1500%;
+        padding: 2rem;
+    }
+</style>
 
 <script>
   const image = document.getElementById("choiceImage");

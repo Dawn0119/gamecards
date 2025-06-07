@@ -5,46 +5,56 @@
 {% block filter %}{% endblock %}
 
 {% block content %}
-<h2>這張卡片的資訊</h2>
+<h2 style="padding: 0rem 0rem 2rem 2rem; font-size: large;">這張卡片的資訊</h2><br>
 <div id="cardResult">
-  <p>🔄 正在辨識中，請稍候...</p>
+    <p>🔄 正在辨識中，請稍候...</p>
 </div>
+
+<style>
+    main.page-one {
+        background: linear-gradient(135deg, #181c2f 0%, #2d3350 30%, #232946 50%, #1a1a2e 100%);
+        color: #dff9ff;
+        font-family: "Orbitron", sans-serif;
+        height: 1500%;
+        padding: 2rem;
+    }
+</style>
 {% endblock %}
 
 {% block scripts %}
 <script>
-window.onload = () => {
-    const base64 = sessionStorage.getItem('uploadedImage');
-    if (!base64) {
-        console.log("⚠️ 沒有圖片可辨識");
-        return;
-    }
+    window.onload = () => {
+        const base64 = sessionStorage.getItem('uploadedImage');
+        if (!base64) {
+            console.log("⚠️ 沒有圖片可辨識");
+            return;
+        }
 
-    console.log("📤 發送辨識請求...");
+        console.log("📤 發送辨識請求...");
 
-    const byteString = atob(base64.split(',')[1]);
-    const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ab], { type: mimeString });
-    const file = new File([blob], 'upload.jpg', { type: mimeString });
+        const byteString = atob(base64.split(',')[1]);
+        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        const file = new File([blob], 'upload.jpg', { type: mimeString });
 
-    const formData = new FormData();
-    formData.append('image', file);
+        const formData = new FormData();
+        formData.append('image', file);
 
-    fetch('/match_one', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        const result = document.getElementById('cardResult');
-        if (result) {
-            if (data.images_html && data.text_html) {
-                result.innerHTML = `
+        fetch('/match_one', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                const result = document.getElementById('cardResult');
+                if (result) {
+                    if (data.images_html && data.text_html) {
+                        result.innerHTML = `
                     <div class="card-list single-column">
                       <div class="card-item">
                         <div class="card-images">
@@ -56,19 +66,19 @@ window.onload = () => {
                       </div>
                     </div>
                 `;
-            } else if (data.error) {
-                result.innerHTML = `<span style="color:red;">${data.error}</span>`;
-            } else {
-                result.innerHTML = `<span style="color:red;">❌ 辨識失敗</span>`;
-            }
-            sessionStorage.removeItem('uploadedImage');
-        }
-    })
-    .catch(err => {
-        console.error('❌ 發送資料失敗', err);
-        const result = document.getElementById('cardResult');
-        if (result) result.innerHTML = '❌ 發送資料失敗';
-    });
-};
+                    } else if (data.error) {
+                        result.innerHTML = `<span style="color:red;">${data.error}</span>`;
+                    } else {
+                        result.innerHTML = `<span style="color:red;">❌ 辨識失敗</span>`;
+                    }
+                    sessionStorage.removeItem('uploadedImage');
+                }
+            })
+            .catch(err => {
+                console.error('❌ 發送資料失敗', err);
+                const result = document.getElementById('cardResult');
+                if (result) result.innerHTML = '❌ 發送資料失敗';
+            });
+    };
 </script>
 {% endblock %}

@@ -26,7 +26,7 @@ def about():
 
 @app.route('/one')
 def one():
-    return render_template('one.html', css_files=get_css_files())
+    return render_template('one.html', css_files=get_css_files(), page_class='page-one')
 
 @app.route('/all')
 def all():
@@ -52,9 +52,10 @@ def choice():
 
         return render_template(
             'choice.html',
-            css_files=get_css_files(),
+            css_files=get_css_files(), 
             image_data=boxed_path,
-            boxes_json=boxes_json
+            boxes_json=boxes_json,
+            page_class='page-choice',
         )
 
     except Exception as e:
