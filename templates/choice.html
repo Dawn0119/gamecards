@@ -7,34 +7,6 @@
 {% block content %}
 <h2>自行選擇</h2>
 
-<style>
-  #choiceContainer {
-    position: relative;
-    display: inline-block;
-  }
-  #choiceImage {
-    display: block;
-    width: 1000px;
-    height: auto;
-  }
-  .bbox {
-    position: absolute;
-    border: 2px solid transparent;
-    cursor: pointer;
-  }
-  .bbox:hover {
-    border-color: red;
-  }
-  #hoverPreview {
-    position: absolute;
-    display: none;
-    border: 2px solid white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    width: 200px;
-  }
-</style>
-
 <div id="choiceContainer">
   <img id="choiceImage" src="/uploads/boxed.jpg">
   <img id="hoverPreview">
@@ -80,7 +52,7 @@
       div.onmouseleave = () => {
         popup.style.display = "none";
       };
-      
+
       div.onclick = () => {
         // Hide UI elements
         image.style.display = "none";
@@ -105,33 +77,36 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ index })
         })
-        .then(res => res.json())
-        .then(data => {
-          if (data.result) {
-            statusBox.innerHTML = `
-              <div class="card-list">
-                <div class="card-item">
-                  <div class="card-text">
-                    ✅ 辨識完成：
-                    ${data.result}
-                  </div>
-                </div>
-              </div>`;
-          } else {
-            statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
-          }
-        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.images_html && data.text_html) {
+              statusBox.innerHTML = `
+      <div class="card-list single-column">
+        <div class="card-item">
+          <div class="card-images">
+            ${data.images_html}
+          </div>
+          <div class="card-text">
+            ${data.text_html}
+          </div>
+        </div>
+      </div>`;
+            } else {
+              statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
+            }
+          })
 
-        .catch(err => {
-          console.error(err);
-          statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 傳送錯誤</span>`;
-        });
+          .catch(err => {
+            console.error(err);
+            statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 傳送錯誤</span>`;
+          });
       };
-
-
-
       container.appendChild(div);
     });
   };
 </script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/hint.js') }}"></script>
 {% endblock %}

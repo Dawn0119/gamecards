@@ -74,6 +74,11 @@ def read_info(matched_name):
     info = info.replace("\n", " <br>")
     info = re.sub(r"(https?://[^\s]+)", r'<img src="\1" alt="圖片" />', info)
 
+    image_html_list = re.findall(r'<img src="[^"]+" alt="圖片" />', info)
+    images_html = "".join(image_html_list)
+
+    text_html = re.sub(r'<img src="[^"]+" alt="圖片" />', '', info)
+
     # Get average price using correct Japanese name
     fullwidth_name = to_fullwidth(card_name_jp)
     average_price = get_average_price(fullwidth_name)
@@ -83,13 +88,13 @@ def read_info(matched_name):
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)
         if price_twd:
-            info += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
+            text_html += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
         else:
-            info += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
+            text_html += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
     else:
-        info += "<br><b>平均價格:</b> 價格未找到"
+        text_html += "<br><b>平均價格:</b> 價格未找到"
 
-    return info, card_id
+    return (text_html, images_html), card_id
 
 
 def process_multi_image(image_bytes_list):
@@ -109,10 +114,10 @@ def process_multi_image(image_bytes_list):
 
         matched_name = match_single_crop(des, index, descs, names)
         if matched_name:
-            info_html, card_id = read_info(matched_name)
-            if info_html:
+            (info_text_html, images_html), card_id = read_info(matched_name)
+            if info_text_html:
                 result_dict[card_id][0] += 1
-                result_dict[card_id][1] = info_html
+                result_dict[card_id][1] = (info_text_html, images_html)
 
     if not result_dict:
         return "<p>❌ 沒有辨識出任何卡片</p>"
@@ -121,12 +126,15 @@ def process_multi_image(image_bytes_list):
     total_cards = sum([v[0] for _, v in sorted_items])
 
     result_html = f"<p>辨識出 {total_cards} 張卡片（{len(sorted_items)} 種）：</p>\n<div class='card-list'>\n"
-    for card_id, (count, info) in sorted_items:
+    for card_id, (count, (text_html, images_html)) in sorted_items:
         result_html += f"""
         <div class="card-item">
+            <div class="card-images">
+                {images_html}
+            </div>
             <div class="card-text">
                 <p><strong>{count} 張</strong></p>
-                {info}
+                {text_html}
             </div>
         </div>\n
         """

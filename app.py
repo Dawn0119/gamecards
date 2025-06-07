@@ -16,7 +16,6 @@ def get_css_files():
     css_folder = os.path.join(app.static_folder, 'css')
     return [f'css/{f}' for f in os.listdir(css_folder) if f.endswith('.css')]
 
-# ----------- 頁面路由 -----------
 @app.route('/')
 def index():
     return render_template('index.html', css_files=get_css_files())
@@ -70,18 +69,22 @@ def match_one():
     file = request.files.get("image")
     if not file:
         print("❌ 沒有收到圖片")
-        return Response("<p>❌ 請正確上傳一張圖檔</p>", status=400, mimetype='text/html; charset=utf-8')
+        return jsonify({"error": "❌ 請正確上傳一張圖檔"}), 400
 
     img_data = file.read()
     temp_path = os.path.join("uploads", "temp.jpg")
 
     try:
-        result_html = process_image(img_data)
-        return Response(result_html, mimetype='text/html; charset=utf-8')
+        from backend.matcher import process_image
+        images_html, text_html = process_image(img_data)
+        return jsonify({
+            "images_html": images_html,
+            "text_html": text_html
+        })
     except Exception as e:
         import traceback
         traceback.print_exc()
-        return Response(f"<p>處理錯誤：{str(e)}</p>", status=500, mimetype='text/html; charset=utf-8')
+        return jsonify({"error": f"處理錯誤：{str(e)}"}), 500
     finally:
         try:
             os.remove(temp_path)
@@ -141,14 +144,16 @@ def match_choice():
             return jsonify({"error": "Crop image not found"}), 404
 
         from backend.matcher import process_image_file
-        matched_html = process_image_file(crop_path)
+        images_html, text_html = process_image_file(crop_path)
 
 
-        return jsonify({"result": matched_html})  # return JSON
+        return jsonify({
+            "images_html": images_html,
+            "text_html": text_html
+        })
     except Exception as e:
         print("❌ Error in match_choice:", e)
         return jsonify({"error": "Internal error"}), 500
-
 
 @app.route("/choice_result")
 def choice_result():
@@ -163,6 +168,5 @@ from flask import send_from_directory
 def uploaded_file(filename):
     return send_from_directory("uploads", filename)
 
-# ----------- 啟動 -----------
 if __name__ == '__main__':
     app.run(debug=True)

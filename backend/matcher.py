@@ -98,6 +98,11 @@ def process_image(img_data):
     info = html.escape(info, quote=False).replace("圖片 URL:", "")
     info = info.replace("\n", " <br>")
     info = re.sub(r"(https?://[^\s]+)", r'<img src="\1" alt="圖片" />', info)
+    
+    image_html_list = re.findall(r'<img src="[^"]+" alt="圖片" />', info)
+    images_html = "".join(image_html_list)
+    text_html = re.sub(r'<img src="[^"]+" alt="圖片" />', '', info)
+
 
     # Get average price using correct Japanese name
     fullwidth_name = to_fullwidth(card_name_jp)
@@ -109,14 +114,15 @@ def process_image(img_data):
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)
         if price_twd:
-            info += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
+            text_html += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
         else:
-            info += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
+            text_html += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
     else:
-        info += "<br><b>平均價格:</b> 價格未找到"
+        text_html += "<br><b>平均價格:</b> 價格未找到"
 
-
-    return info
+    count = 1
+    text_html = f'<p><strong>{count} 張</strong></p>' + text_html
+    return images_html, text_html
 
 #choice
 def process_image_file(image_path):

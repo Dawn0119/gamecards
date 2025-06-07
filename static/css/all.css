@@ -1,9 +1,13 @@
 main.page-all {
-  background-color: #0a0a0a;
-  padding: 0 0 2rem 0;
-  /* border-radius: 8px; */
+  height: auto;
+  background: linear-gradient(120deg, #232946 0%, #181c2f 80%, #22223b 100%);
+  padding: 0 0 1rem 0;
   color: #dff9ff;
   font-family: "Orbitron", sans-serif;
+  /* border-radius: 18px;
+  box-shadow: 0 4px 32px #181c2f55;
+  margin: 2rem auto 2rem auto;
+  max-width: 1200px; */
 }
 
 .filter-bar {
@@ -12,15 +16,41 @@ main.page-all {
   width: 100%;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  background-color: #111;
-  left: 0;
-  right: 0;
-  gap: 20px;
+  gap: 8px;
   padding: 10px;
   font-family: "Orbitron", sans-serif;
   box-sizing: border-box;
+  /* border-bottom: 1.5px solid #33ffff33; */
+  flex-wrap: nowrap;
   z-index: 999;
+  background: linear-gradient(90deg, #2e335a 0%, #232946 60%, #181c2f 100%);
+}
+
+.filter-h2 {
+  color: #33ffff;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  text-shadow: 0 0 6px #33ffff88;
+  margin: 0;
+  flex-grow: 1;
+  white-space: nowrap;
+  text-align: right;
+  max-width: 100px;
+}
+
+@media (max-width: 800px) {
+  .filter-h2 {
+    writing-mode: vertical-rl;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 .filter-bar button {
@@ -55,23 +85,17 @@ main.page-all {
   box-shadow: 0 0 24px #00ffb399, 0 0 8px #0a4332;
 }
 
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
 
-.bg-gray-100 {
+/* .bg-gray-100 {
   background-color: #0a0a0a;
   color: #eee;
   font-family: "Orbitron", sans-serif;
   padding: 20px;
-}
+} */
 
 .all-cards {
   /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem; */
-  padding: 2rem;
+  padding: 1rem;
 }

@@ -24,19 +24,20 @@ window.onload = () => {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
-    .then(html => {
-        const result = document.getElementById('cardResult');
-        if (result) {
-            result.innerHTML = html;
-            sessionStorage.removeItem('uploadedImage');
-        }
-    })
-    .catch(err => {
-        console.error('❌ 發送資料失敗', err);
-        const result = document.getElementById('cardResult');
-        if (result) result.innerHTML = '❌ 發送資料失敗';
-    });
+        .then(response => response.text())
+        .then(html => {
+            const result = document.getElementById('cardResult');
+            if (result) {
+                result.innerHTML = html;
+                sessionStorage.removeItem('uploadedImage');
+                updateCardListLayout();
+            }
+        })
+        .catch(err => {
+            console.error('❌ 發送資料失敗', err);
+            const result = document.getElementById('cardResult');
+            if (result) result.innerHTML = '❌ 發送資料失敗';
+        });
 };
 
 // 萃取主分類
@@ -67,6 +68,19 @@ function parseCategory(text) {
     return '通常';
 }
 
+function updateCardListLayout() {
+    const cardList = document.querySelector('.card-list');
+    if (!cardList) return;
+    const visibleItems = Array.from(cardList.children).filter(
+        el => el.classList.contains('card-item') && el.style.display !== 'none'
+    );
+    if (visibleItems.length === 1) {
+        cardList.classList.add('single-column');
+    } else {
+        cardList.classList.remove('single-column');
+    }
+}
+
 // 類型篩選功能
 function filterCards(button, type) {
     document.querySelectorAll('.filter-bar button').forEach(btn => {
@@ -79,9 +93,10 @@ function filterCards(button, type) {
         const text = card.querySelector('.card-text')?.innerHTML || '';
         const category = parseCategory(text);
         if (type === '全部' || category === type) {
-            card.style.display = 'block';
+            card.style.display = 'flex';
         } else {
             card.style.display = 'none';
         }
     });
+    updateCardListLayout();
 }

@@ -39,11 +39,28 @@ window.onload = () => {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
-    .then(html => {
+    .then(response => response.json())
+    .then(data => {
         const result = document.getElementById('cardResult');
         if (result) {
-            result.innerHTML = html;
+            if (data.images_html && data.text_html) {
+                result.innerHTML = `
+                    <div class="card-list single-column">
+                      <div class="card-item">
+                        <div class="card-images">
+                          ${data.images_html}
+                        </div>
+                        <div class="card-text">
+                          ${data.text_html}
+                        </div>
+                      </div>
+                    </div>
+                `;
+            } else if (data.error) {
+                result.innerHTML = `<span style="color:red;">${data.error}</span>`;
+            } else {
+                result.innerHTML = `<span style="color:red;">❌ 辨識失敗</span>`;
+            }
             sessionStorage.removeItem('uploadedImage');
         }
     })
