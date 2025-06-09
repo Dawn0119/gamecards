@@ -3,7 +3,7 @@ import requests
 # --- Roboflow API Config ---
 API_KEY = "jPtq6WNi8tOUWrx5we1t"
 
-MODEL_ID = "color-zagok/3"
+MODEL_ID = "color-zagok/4"
 CONFIDENCE = 0.18
 
 def get_card_class(image_path):
