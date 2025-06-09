@@ -98,5 +98,11 @@ function filterCards(button, type) {
             card.style.display = 'none';
         }
     });
+
+    const summary = document.getElementById('cardSummary');
+    if (summary) {
+        summary.style.display = (type === '全部') ? 'block' : 'none';
+    }
+    
     updateCardListLayout();
 }

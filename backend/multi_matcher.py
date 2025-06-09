@@ -125,7 +125,7 @@ def process_multi_image(image_bytes_list):
     sorted_items = sorted(result_dict.items(), key=lambda x: x[0])
     total_cards = sum([v[0] for _, v in sorted_items])
 
-    result_html = f"<p>辨識出 {total_cards} 張卡片（{len(sorted_items)} 種）：</p>\n<div class='card-list'>\n"
+    result_html = f"<p id='cardSummary' style='padding: 0rem 0rem 1.5rem 2rem; font-size: large;'>辨識出 {total_cards} 張卡片（{len(sorted_items)} 種）：</p>\n<div class='card-list'>\n"
     for card_id, (count, (text_html, images_html)) in sorted_items:
         result_html += f"""
         <div class="card-item">

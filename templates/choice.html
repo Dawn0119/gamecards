@@ -5,8 +5,7 @@
 {% block filter %}{% endblock %}
 
 {% block content %}
-<h2>自行選擇想查詢的卡片資訊</h2>
-<p>選擇</p>
+<h2  style="padding: 0rem 0rem 1rem 2rem; font-size: large;">自行選擇想查詢的卡片資訊</h2><br>
 <div id="choiceContainer">
   <img id="choiceImage" src="/uploads/boxed.jpg">
   <img id="hoverPreview">
@@ -66,7 +65,6 @@
         image.style.display = "none";
         popup.style.display = "none";
         document.querySelector("h2").style.display = "none";
-        document.querySelector("p").style.display = "none";
         document.querySelectorAll(".bbox").forEach(box => {
           box.style.display = "none";
         });
@@ -75,7 +73,7 @@
         const statusBox = document.createElement("div");
         statusBox.id = "resultBox";
         statusBox.innerHTML = `<span style="color:#00e0ff; font-size: 20px;">🔍 正在辨識中，請稍候...</span>`;
-        statusBox.style.marginTop = "40px";
+        statusBox.style.marginTop = "0px";
         // statusBox.style.textAlign = "center";
         container.appendChild(statusBox);
 
@@ -89,6 +87,7 @@
           .then(data => {
             if (data.images_html && data.text_html) {
               statusBox.innerHTML = `
+              <h2 style="padding: 0rem 0rem 1.5rem 2rem; font-size: large;">這張卡片的資訊</h2>
       <div class="card-list single-column">
         <div class="card-item">
           <div class="card-images">

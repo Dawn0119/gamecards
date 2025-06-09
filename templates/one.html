@@ -5,7 +5,6 @@
 {% block filter %}{% endblock %}
 
 {% block content %}
-<h2 style="padding: 0rem 0rem 2rem 2rem; font-size: large;">這張卡片的資訊</h2><br>
 <div id="cardResult">
     <p style="color:#00e0ff; font-size: 20px;">🔍 正在辨識中，請稍候...</p>
 </div>
@@ -55,6 +54,7 @@
                 if (result) {
                     if (data.images_html && data.text_html) {
                         result.innerHTML = `
+                        <h2 style="padding: 0rem 0rem 1.5rem 2rem; font-size: large;">這張卡片的資訊</h2>
                     <div class="card-list single-column">
                       <div class="card-item">
                         <div class="card-images">
