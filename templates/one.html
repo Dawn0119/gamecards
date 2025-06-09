@@ -7,7 +7,7 @@
 {% block content %}
 <h2 style="padding: 0rem 0rem 2rem 2rem; font-size: large;">這張卡片的資訊</h2><br>
 <div id="cardResult">
-    <p>🔄 正在辨識中，請稍候...</p>
+    <p style="color:#00e0ff; font-size: 20px;">🔍 正在辨識中，請稍候...</p>
 </div>
 
 <style>
@@ -69,7 +69,7 @@
                     } else if (data.error) {
                         result.innerHTML = `<span style="color:red;">${data.error}</span>`;
                     } else {
-                        result.innerHTML = `<span style="color:red;">❌ 辨識失敗</span>`;
+                        result.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
                     }
                     sessionStorage.removeItem('uploadedImage');
                 }

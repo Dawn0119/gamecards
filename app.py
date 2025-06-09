@@ -77,11 +77,20 @@ def match_one():
 
     try:
         from backend.matcher import process_image
-        images_html, text_html = process_image(img_data)
+        result = process_image(img_data)
+
+        if isinstance(result, str):
+            return jsonify({
+                "images_html": "",
+                "text_html": result
+            })
+
+        images_html, text_html = result
         return jsonify({
             "images_html": images_html,
             "text_html": text_html
         })
+
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -118,7 +127,7 @@ def match_all():
         except Exception as e:
             print(f"⚠️ 無法刪除上傳圖檔: {e}")
 
-# ----------- 分類模式（保留路由，但尚未使用）-----------
+# ----------- 分類模式 -----------
 @app.route('/upload_choice_image', methods=['POST'])
 def upload_choice_image():
     file = request.files.get("image")
@@ -136,6 +145,7 @@ def upload_choice_image():
 from backend.crop import *
 import json
 
+# ----------- 自行選擇 -----------
 @app.route("/match_choice", methods=["POST"])
 def match_choice():
     try:
@@ -145,23 +155,29 @@ def match_choice():
             return jsonify({"error": "Crop image not found"}), 404
 
         from backend.matcher import process_image_file
-        images_html, text_html = process_image_file(crop_path)
+        result = process_image_file(crop_path)
 
+        if isinstance(result, str):
+            return jsonify({
+                "images_html": "",
+                "text_html": result
+            })
 
+        images_html, text_html = result
         return jsonify({
             "images_html": images_html,
             "text_html": text_html
         })
+
     except Exception as e:
         print("❌ Error in match_choice:", e)
         return jsonify({"error": "Internal error"}), 500
-
+    
 @app.route("/choice_result")
 def choice_result():
     result = session.get("match_result")
     result_html = f"<p>{result}</p>" if result else "<p>❌ 找不到辨識結果</p>"
     return render_template("choice_result.html", result_html=result_html)
-
 
 from flask import send_from_directory
 
