@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, Response
-from backend.matcher import process_image
+from backend.matcher import *
 from backend.all_flow import recognize_multi_cards
 import json
 from backend.choice_flow import process_uploaded_image, draw_boxes
@@ -76,7 +76,6 @@ def match_one():
     temp_path = os.path.join("uploads", "temp.jpg")
 
     try:
-        from backend.matcher import process_image
         result = process_image(img_data)
 
         if isinstance(result, str):
@@ -85,10 +84,11 @@ def match_one():
                 "text_html": result
             })
 
-        images_html, text_html = result
+        (images_html, text_html), card_name_jp = result
         return jsonify({
             "images_html": images_html,
-            "text_html": text_html
+            "text_html": text_html,
+            "card_name_jp": card_name_jp
         })
 
     except Exception as e:
@@ -100,6 +100,17 @@ def match_one():
             os.remove(temp_path)
         except Exception as e:
             print(f"⚠️ 無法刪除上傳圖檔: {e}")
+
+@app.route('/get_price', methods=['POST'])
+def get_price():
+    data = request.get_json()
+    card_name_jp = data.get("card_name_jp", "").strip()
+
+    if not card_name_jp:
+        return jsonify({"price_html": "<br><b>平均價格:</b> 名稱錯誤或缺失"})
+
+    price_html = get_price_html(card_name_jp)
+    return jsonify({"price_html": price_html})
 
 # ----------- 多卡辨識 -----------
 @app.route('/match_all', methods=['POST'])
@@ -153,8 +164,7 @@ def match_choice():
         crop_path = f"./uploads/crop_{index}.jpg"
         if not os.path.exists(crop_path):
             return jsonify({"error": "Crop image not found"}), 404
-
-        from backend.matcher import process_image_file
+        
         result = process_image_file(crop_path)
 
         if isinstance(result, str):
@@ -163,10 +173,11 @@ def match_choice():
                 "text_html": result
             })
 
-        images_html, text_html = result
+        (images_html, text_html), card_name_jp = result
         return jsonify({
             "images_html": images_html,
-            "text_html": text_html
+            "text_html": text_html,
+            "card_name_jp": card_name_jp
         })
 
     except Exception as e:

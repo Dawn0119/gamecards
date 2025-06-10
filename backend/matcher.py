@@ -88,12 +88,6 @@ def process_image(img_data):
     with open(info_file, encoding="utf-8") as f:
         lines = f.readlines()
 
-    card_name_jp = ""
-    for line in lines:
-        if line.startswith("日文名:"):
-            card_name_jp = line.replace("日文名:", "").strip()
-            break
-
     info = "".join(lines)
     info = html.escape(info, quote=False).replace("圖片 URL:", "")
     info = info.replace("\n", " <br>")
@@ -103,26 +97,29 @@ def process_image(img_data):
     images_html = "".join(image_html_list)
     text_html = re.sub(r'<img src="[^"]+" alt="圖片" />', '', info)
 
-
     # Get average price using correct Japanese name
+    card_name_jp = ""
+    for line in lines:
+        if line.startswith("日文名:"):
+            card_name_jp = line.replace("日文名:", "").strip()
+            break
+    
+    
+    return (images_html, text_html), card_name_jp
+
+def get_price_html(card_name_jp):
     fullwidth_name = to_fullwidth(card_name_jp)
     average_price = get_average_price(fullwidth_name)
-
-
 
     if average_price is not None:
         from backend.avg_price import convert_jpy_to_twd  # add this if not already imported
         price_twd = convert_jpy_to_twd(average_price)
         if price_twd:
-            text_html += f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
+            return f"<br><b>平均價格:</b> {average_price} 円 (NT${price_twd})"
         else:
-            text_html += f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
+            return f"<br><b>平均價格:</b> {average_price} 円 (TWD轉換失敗)"
     else:
-        text_html += "<br><b>平均價格:</b> 價格未找到"
-
-    count = 1
-    text_html = f'<p><strong>{count} 張</strong></p>' + text_html
-    return images_html, text_html
+        return "<br><b>平均價格:</b> 價格未找到"
 
 #choice
 def process_image_file(image_path):

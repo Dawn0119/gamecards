@@ -5,20 +5,20 @@
 {% block filter %}{% endblock %}
 
 {% block content %}
-<h2  style="padding: 0rem 0rem 1rem 2rem; font-size: large;">自行選擇想查詢的卡片資訊</h2><br>
+<h2 style="padding: 0rem 0rem 1rem 2rem; font-size: large;">自行選擇想查詢的卡片資訊</h2>
 <div id="choiceContainer">
   <img id="choiceImage" src="/uploads/boxed.jpg">
   <img id="hoverPreview">
 </div>
 
 <style>
-    main.page-choice {
-        background: linear-gradient(135deg, #181c2f 0%, #2d3350 30%, #232946 50%, #1a1a2e 100%);
-        color: #dff9ff;
-        font-family: "Orbitron", sans-serif;
-        height: 1500%;
-        padding: 2rem;
-    }
+  main.page-choice {
+    background: linear-gradient(135deg, #181c2f 0%, #2d3350 30%, #232946 50%, #1a1a2e 100%);
+    color: #dff9ff;
+    font-family: "Orbitron", sans-serif;
+    height: 1500%;
+    padding: 2rem;
+  }
 </style>
 
 <script>
@@ -80,33 +80,68 @@
         // Fetch match result
         fetch("/match_choice", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ index })
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.images_html && data.text_html) {
-              statusBox.innerHTML = `
-              <h2 style="padding: 0rem 0rem 1.5rem 2rem; font-size: large;">這張卡片的資訊</h2>
-      <div class="card-list single-column">
-        <div class="card-item">
-          <div class="card-images">
-            ${data.images_html}
-          </div>
-          <div class="card-text">
-            ${data.text_html}
-          </div>
-        </div>
-      </div>`;
-            } else {
-              statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
-            }
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            index
           })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.images_html && data.text_html) {
+            statusBox.innerHTML = `
+              <h2 style="padding: 0rem 0rem 1.5rem 2rem; font-size: large;">這張卡片的資訊</h2>
+              <div class="card-list single-column">
+                <div class="card-item">
+                  <div class="card-images">
+                    ${data.images_html}
+                  </div>
+                  <div class="card-text" id="textBlock">
+                    ${data.text_html}
+                    <i id="priceLoading" style="color:gray;">🔍 正在查詢價格...</i>
+                  </div>
+                </div>
+              </div>`;
 
-          .catch(err => {
-            console.error(err);
-            statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 傳送錯誤</span>`;
-          });
+            // 價格查詢部分：使用 data.card_name_jp 發送請求
+            if (data.card_name_jp) {
+              fetch('/get_price', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  card_name_jp: data.card_name_jp
+                })
+              })
+              .then(res => res.json())
+              .then(priceData => {
+                const textBlock = document.getElementById('textBlock');
+                const priceLoading = document.getElementById('priceLoading');
+                if (textBlock && priceData.price_html) {
+                  if (priceLoading) priceLoading.remove();
+                  textBlock.innerHTML += priceData.price_html;
+                }
+              })
+              .catch(err => {
+                console.warn("⚠️ 價格查詢失敗", err);
+                const priceLoading = document.getElementById('priceLoading');
+                if (priceLoading) {
+                  priceLoading.innerHTML = "⚠️ 價格查詢失敗";
+                  priceLoading.style.color = "orange";
+                }
+              });
+            }
+
+          } else {
+            statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 辨識失敗，請重試</span>`;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          statusBox.innerHTML = `<span style="color:red; font-size: 20px;">❌ 傳送錯誤</span>`;
+        });
       };
       container.appendChild(div);
     });
